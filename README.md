@@ -36,3 +36,14 @@ App running on port 3000...
 ```
 - Test the API with postman:
 ![postman output](images/expressPostman.png)
+You could also run the application and test it in the browser. Note that Postman does not render HTML.  
+Instead of ```send()``` test, we can also response JSON like this:  
+```JavaScript
+app.get('/', (request, response) => {
+  response
+    .status(200)
+    .json({ message: 'Hellow from the server side!', app: 'Natours' });
+});
+```  
+Here we have a JSON object response in Postman.
+![Json postman img](images/espressJson.png)

@@ -8,7 +8,9 @@ const app = express();
 // when someone hits that URL with a get request, what we want to happen is specified in a callback function as the second argument,
 // and with the callback function we pass along a request and response argument.
 app.get('/', (request, response) => {
-  response.status(200).send('Hello from the server side!');
+  response
+    .status(200)
+    .json({ message: 'Hellow from the server side!', app: 'Natours' });
 });
 
 const port = 3000;
