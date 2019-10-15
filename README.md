@@ -104,6 +104,7 @@ const app = express();
 const tours = JSON.parse(
   fs.readFileSync(`${__dirname}/dev-data/data/tours-simple.json`)
 );
+
 // Define a Route:
 app.get('/api/v1/tours', (request, response) => { // the callback function is called 'The Route Handler';  
   // only callback functions will run inside the Event Loop. In here we cannot have any blocking code!
@@ -112,6 +113,7 @@ app.get('/api/v1/tours', (request, response) => { // the callback function is ca
   response.status(200).json({
     // in JSend standard format:
     status: 'success',
+	results: tours.length, // this only makes sens when we sending multiple objects(array)
     data: {
       tours
     }
@@ -119,7 +121,7 @@ app.get('/api/v1/tours', (request, response) => { // the callback function is ca
 });
 
 const port = 3000;
-// Create a Server; pass in a port and a callback function that will be called as soon as the server starts listening.
+// Create a Server; callback function will be called as soon as the server starts listening.
 app.listen(port, () => {
   console.log(`App running on port ${port}...`);
 });

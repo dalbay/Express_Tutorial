@@ -21,6 +21,7 @@ app.get('/api/v1/tours', (request, response) => {
   response.status(200).json({
     // we want to send back JSend standard format:
     status: 'success',
+    results: tours.length, // this only makes sens when we sending multiple objects(array)
     data: {
       tours
     }
