@@ -2,25 +2,27 @@
 Tutorial on Express - a web framework for Node.js. This is my tute summary bases on udemy's nodejs-express-mongodb-bootcamp course
 <br/>
 ### Setting up Express and Basic Routing
-- npm init
-- npm i express@4
+- ```npm init```
+- ```npm i express@4```
 - create app.js file - put all Express configurations inside this folder.
 ```JavaScript
-// use Express
+// Use Express:
 const express = require('express');
 
-// create a standard variable called app and assign express to it; this will add methods to a the variable
+// Define app variable and assign express to it: 
+// this add methods that we will use to the app variable
 const app = express();
 
-// define a route:
-// when someone hits that URL with a get request, what we want to happen is specified in a callback function as the second argument,
-// and with the callback function we pass along a request and response argument.
+// Define a route:
+// when the route is hit the callback function specifies the outcome
+// pass in request and response arguments to the callback function
 app.get('/', (request, response) => {
   response.status(200).send('Hello from the server side!');
 });
 
 const port = 3000;
-// use the listen method to create a server; pass in a port and a callback function that will be called as soon as the server starts listening.
+// Use listen() method to create a server:
+// pass in a port and a callback function which will be called as soon as the server starts listening.
 app.listen(port, () => {
   console.log(`App running on port ${port}...`);
 });
@@ -34,7 +36,7 @@ OUTPUT:
 App running on port 3000...
 */
 ```
-- Test the API with postman:
+- Test the API with **Postman**:
 ![postman output](images/expressPostman.png)
 You could also run the application and test it in the browser. Note that Postman does not render HTML.  
 Instead of ```send()``` test, we can also response JSON. We don't have to manually define the content-type with express; some result headers are automatically send back by express.
