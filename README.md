@@ -63,9 +63,11 @@ Here we have a JSON object response in Postman.
 1. Separate API into logical ***resources*** -> Resource: Object or representation of something, which has data associated to it. Any information that can be *named*(not a verb) can be a resource.  
    Example: tours, users, review
 <br/>
+
 2. Expose structured, ***resource-based URLs*** -> make available the data using some structured URLs that the client can send some requests to.  
    Example: https://www.natours.com/addNewTour (/addNewTour is called ENDPOINT - Entpoints will send back different data to the client)
 <br/>
+
 3. Use ***HTTP methods*** -> Endpoints should be names and not verbs. Use http methods and names for the endpoint.  
    Example: /getTours   - GET     /tours  : Read
             /addNewTour - POST    /tours  : Create  
