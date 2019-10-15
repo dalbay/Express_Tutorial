@@ -61,18 +61,20 @@ Here we have a JSON object response in Postman.
 #### REST Principles
 
 1. Separate API into logical ***resources*** -> Resource: Object or representation of something, which has data associated to it. Any information that can be *named*(not a verb) can be a resource.  
-   Example: tours, users, review,...
+   Example:  
+   tours, users, review,...
 <br/>
 
 2. Expose structured, ***resource-based URLs*** -> make available the data using some structured URLs that the client can send some requests to.  
-   Example: https://www.natours.com/addNewTour (/addNewTour is called ENDPOINT - Entpoints will send back different data to the client)
+   Example:  
+   https://www.natours.com/addNewTour (/addNewTour is called ENDPOINT - Entpoints will send back different data to the client)
 <br/>
 
 3. Use ***HTTP methods*** -> Endpoints should be names and not verbs. Use http methods and names for the endpoint.  
    Example:  
    /getTours   - ```GET```     /tours  : Read  
    /addNewTour - ```POST```    /tours  : Create  
-   /updateTour - ```PUT```(sent the entire object)/```PATCH```(part of object) /tours  : Update  
+   /updateTour - ```PUT```(sent the entire object) / ```PATCH```(part of object) /tours  : Update  
    /deleteTour - ```DELETE```  /tours  : Delete
 <br/>
 
@@ -81,3 +83,11 @@ Here we have a JSON object response in Postman.
 <br/>
 
 5. Be ***stateless*** -> All state is handled on the client. (State refers to a piece of data in the application that might change overtime; ex: loggedIn, currentPage) This means that each request must contain all the information necessary to process a certain request. The server should not have to remember previous requests.
+<br/>
+
+## Handling GET Requests
+
+- In this project we will be able to see tours, book thours, create account, look at reviews from other users. The graphical interface will be build later.
+- Start the project by working with the data - Create the API.
+ 
+
