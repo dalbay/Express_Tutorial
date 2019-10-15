@@ -12,7 +12,7 @@ const app = express();
 const tours = JSON.parse(
   fs.readFileSync(`${__dirname}/dev-data/data/tours-simple.json`)
 );
-// define a route:
+// Define a Route:
 app.get('/api/v1/tours', (request, response) => {
   // the callback function is usually called 'The Route Handler';
   // only callback functions will run inside the Event Loop. In here we cannot have any blocking code!

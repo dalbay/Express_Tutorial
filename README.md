@@ -111,9 +111,9 @@ app.get('/api/v1/tours', (request, response) => { // the callback function is ca
   // read the data before we can send it to the client(in top-level code).
   // Send Data to Client:
   response.status(200).json({
-    // in JSend standard format:
+    // we want to send back JSend standard format:
     status: 'success',
-	results: tours.length, // this only makes sens when we sending multiple objects(array)
+    results: tours.length, // only add when we sending multiple objects(array)
     data: {
       tours
     }
