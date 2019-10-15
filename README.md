@@ -59,8 +59,9 @@ Here we have a JSON object response in Postman.
 ### The REST Architecture
 *a way of building Web API's in a logical way making them easy to consume.*  
 #### REST Principles
+
 1. Separate API into logical ***resources*** -> Resource: Object or representation of something, which has data associated to it. Any information that can be *named*(not a verb) can be a resource.  
-   Example: tours, users, review,...
+   Example: tours, users, review
 <br/>
 2. Expose structured, ***resource-based URLs*** -> make available the data using some structured URLs that the client can send some requests to.  
    Example: https://www.natours.com/addNewTour (/addNewTour is called ENDPOINT - Entpoints will send back different data to the client)
