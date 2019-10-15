@@ -24,4 +24,15 @@ const port = 3000;
 app.listen(port, () => {
   console.log(`App running on port ${port}...`);
 });
+
+/* Run the application
+OUTPUT:
+[nodemon] to restart at any time, enter `rs`
+[nodemon] watching dir(s): *.*
+[nodemon] watching extensions: js,mjs,json
+[nodemon] starting `node app.js`
+App running on port 3000...
+*/
 ```
+- Test the API with postman:
+![postman output](images/expressPostman.png)
