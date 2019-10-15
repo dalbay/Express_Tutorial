@@ -37,7 +37,7 @@ App running on port 3000...
 - Test the API with postman:
 ![postman output](images/expressPostman.png)
 You could also run the application and test it in the browser. Note that Postman does not render HTML.  
-Instead of ```send()``` test, we can also response JSON like this:  
+Instead of ```send()``` test, we can also response JSON. We don't have to manually define the content-type with express; some result headers are automatically send back by express.
 ```JavaScript
 app.get('/', (request, response) => {
   response
@@ -47,3 +47,7 @@ app.get('/', (request, response) => {
 ```  
 Here we have a JSON object response in Postman.
 ![Json postman img](images/espressJson.png)
+<br/>
+
+### APIs and RESTful API Design
+
