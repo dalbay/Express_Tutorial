@@ -191,11 +191,11 @@ Add additional data in Postman for testing purpose:
 - the end piece of the URL is where we want a variable that acts as a unique identifier.
 - we want to read this variable from the URL - define a route which can accept a variable.
 - create the variable with a colon in the URL with any name  ```app.get('/api/v1/tours/:id', (request, response) => {```  
-- we can access the variable with the assigned value to it with the params property - ```request.params```.
+- we can access the variable with the assigned value to it with the params property; params are all the variables in the URL - ```request.params```.
 ```JavaScript
 // Define a Route to GET ONE Tour by defining a variable:
 app.get('/api/v1/tours/:id', (request, response) => {
-  console.log(request.params); // params are all the variables in the URL
+  console.log(request.params); 
   response.status(200).json({
     status: 'success'
   });
