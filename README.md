@@ -244,6 +244,29 @@ app.get('/api/v1/tours/:id', (request, response) => {
 ```  
 Run the server and make a request in Postman with a value of 5 ```127.0.0.1:3000/api/v1/tours/5```; This will respond with the tour of id 5.
 ![Params image](images/expressParams.png)  
+<br/>
 
+## Handling PATCH Requests
+- to update data
+- first expect a patch request to come in and create the URL for it
+- to update tour - get tour from json file,update it, and save it.
+- For this example we are only sending back a simple response.
+```JavaScript
+// Update data with patch - properties on the object
+app.patch('/api/v1/tours/:id', (request, response) => {
+  if (request.params.id * 1 > tours.length) {
+    response.status(404).json({
+      status: 'fail',
+      message: 'Invalid ID'
+    });
+  }
+  response.status(200).json({
+    status: 'success',
+    data: {
+      tour: '<Updated tour here...>'
+    }
+  });
+});
+```
 
 

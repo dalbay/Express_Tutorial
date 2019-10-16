@@ -79,6 +79,22 @@ app.post('/api/v1/tours', (request, response) => {
   );
 });
 
+// Update data with patch - properties on the object
+app.patch('/api/v1/tours/:id', (request, response) => {
+  if (request.params.id * 1 > tours.length) {
+    response.status(404).json({
+      status: 'fail',
+      message: 'Invalid ID'
+    });
+  }
+  response.status(200).json({
+    status: 'success',
+    data: {
+      tour: '<Updated tour here...>'
+    }
+  });
+});
+
 const port = 3000;
 // use the listen method to create a server; pass in a port and a callback function that will be called as soon as the server starts listening.
 app.listen(port, () => {
