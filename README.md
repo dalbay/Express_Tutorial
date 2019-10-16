@@ -268,5 +268,5 @@ app.patch('/api/v1/tours/:id', (request, response) => {
   });
 });
 ```
-Run the server and make a PATCH request in Postman with a value of 5 ```127.0.0.1:3000/api/v1/tours/5```; This will respond with the tour of id 5.
+Run the server and make a PATCH request in Postman with a value of 5 and change the value of a property in the Body section ```127.0.0.1:3000/api/v1/tours/5```; The output will only display a message with the updated tour here.
 
