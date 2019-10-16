@@ -16,7 +16,7 @@ const tours = JSON.parse(
   fs.readFileSync(`${__dirname}/dev-data/data/tours-simple.json`)
 );
 
-// Define a Route:
+// Define a Route to get ALL Tours:
 app.get('/api/v1/tours', (request, response) => {
   // the callback function is usually called 'The Route Handler';
   // only callback functions will run inside the Event Loop. In here we cannot have any blocking code!
@@ -29,6 +29,15 @@ app.get('/api/v1/tours', (request, response) => {
     data: {
       tours
     }
+  });
+});
+
+// Define a Route to GET ONE Tour by defining a variable:
+app.get('/api/v1/tours/:id', (request, response) => {
+  console.log(request.params); // params are all the variables in the URL
+
+  response.status(200).json({
+    status: 'success'
   });
 });
 

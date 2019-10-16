@@ -182,4 +182,23 @@ app.post('/api/v1/tours', (request, response) => {
 Add additional data in Postman for testing purpose:
 ![Post create tour object](images/expressNewTour.png)  
 
+## Responding to URL Parameters
+- Define Parameters in the URL
+- Read these Parameters and respond to them
+#### Example:  
+- implement retreiving only one tour.
+- the end piece of the URL is where we want a variable that acts as a unique identifier.
+- we want to read this variable from the URL - define a route which can accept a variable.
+- create the variable with a colon in the URL with any name ```app.get('/api/v1/tours/:id', (request, response) => {```  
+```JavaScript
+
+```  
+Run the server and make a request in Postman with a value of 5 ```127.0.0.1:3000/api/v1/tours/5```, and see the OUTPUT in console for the params:
+```
+[nodemon] starting `node app.js`
+App running on port 3000...
+{ id: '5' }  --> here is the variable with the assigned value
+```
+
+
 
