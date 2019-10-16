@@ -4,14 +4,18 @@ const fs = require('fs');
 // use Express
 const express = require('express');
 
-// create a standard variable called app and assign express to it; this will add methods to a the variable
+// create a standard variable called app
 const app = express();
+
+// Create a Middleware (function that can modify incoming request data)
+app.use(express.json());
 
 // Read Data (tours) - an array of JSON objects inside the dev-data folder.
 // We don't have to read data in the route handler, Read data in top-level code; it will be executed only once right after the application startup.
 const tours = JSON.parse(
   fs.readFileSync(`${__dirname}/dev-data/data/tours-simple.json`)
 );
+
 // Define a Route:
 app.get('/api/v1/tours', (request, response) => {
   // the callback function is usually called 'The Route Handler';
@@ -26,6 +30,12 @@ app.get('/api/v1/tours', (request, response) => {
       tours
     }
   });
+});
+
+// Define a new Route to add a new Tour with the HTTP POST Request
+app.post('/api/v1/tours', (request, response) => {
+  console.log(request.body);
+  response.send('Done'); // always need to send response to finish the cycle.
 });
 
 const port = 3000;

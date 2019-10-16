@@ -128,5 +128,31 @@ app.listen(port, () => {
 ```
 Run the project and test the api in Postman:
 ![tours api image](images/expressTours.png)
+<br/>
+
+## Handling POST Requests
+*add a new tour to the data-set*
+- Create a new Route and add a **middleware** to the top-level code.  
+  With HTTP Post we can send data from client to the server on the request; to put the data body on the request we need to include middleware - ```app.use(express.json());```  
+```JavaScript
+// Top-level Code:
+
+// Create a Middleware (function that can modify incoming request data)
+app.use(express.json());
+
+// Define a new Route to add a new Tour with the HTTP POST Request
+app.post('/app/v1/tours', (request, response) => {
+  console.log(request.body);
+  response.send('Done'); // always need to send response to finish the cycle.
+});
+```
+- For testing purposes, Specify the Body in Postman - (raw JSON the data that we want to send to the server.) and Send data:
+![Postman post request](images/expressPost.png)  
+Console Output:  
+```
+[nodemon] starting `node app.js`
+App running on port 3000...
+{ name: 'Test api', duration: 10, difficulty: 'easy' }
+```
 
 
