@@ -7,8 +7,11 @@ const express = require('express');
 // create a standard variable called app
 const app = express();
 
-// Create a Middleware (function that can modify incoming request data)
+// Create a Middleware
 app.use(express.json());
+
+// Create a Middleware
+app.use()
 
 // Read Data (tours) - an array of JSON objects inside the dev-data folder.
 const tours = JSON.parse(

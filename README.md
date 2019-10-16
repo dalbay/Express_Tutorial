@@ -394,4 +394,8 @@ const deleteTour = (request, response) => {
 
 app.route('/api/v1/tours').get(getAllTours).post(createTour);
 app.route('/api/v1/tours/:id').get(getTour).patch(updateTour).post(deleteTour);
-```
+```  
+<br/>
+
+## Creating Our Own Middleware
+- create a middleware with - ```app.use```  and add a function that we want to add to our middleware stack.
