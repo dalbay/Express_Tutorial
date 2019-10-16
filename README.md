@@ -192,6 +192,7 @@ Add additional data in Postman for testing purpose:
 - we want to read this variable from the URL - define a route which can accept a variable.
 - create the variable with a colon in the URL with any name  ```app.get('/api/v1/tours/:id', (request, response) => {```  
 - we can access the variable with the assigned value to it with the params property; params are all the variables in the URL - ```request.params```.
+- Node that we can create as many variables as we want in the URL with a **/:variable_name**, and define the values by adding them to the enpoint. 
 ```JavaScript
 // Define a Route to GET ONE Tour by defining a variable:
 app.get('/api/v1/tours/:id', (request, response) => {
