@@ -15,7 +15,6 @@ const tours = JSON.parse(
   fs.readFileSync(`${__dirname}/dev-data/data/tours-simple.json`)
 );
 
-
 // get ALL Tours functions:
 const getAllTours = (request, response) => {
   response.status(200).json({
@@ -105,7 +104,7 @@ const deleteTour = (request, response) => {
 //app.get('/api/v1/tours/:id', getTour);
 
 // Define a new Route to add a new Tour
-app.post('/api/v1/tours', createTour);
+//app.post('/api/v1/tours', createTour);
 
 // Update a Tour
 //app.patch('/api/v1/tours/:id', updateTour);
@@ -114,11 +113,17 @@ app.post('/api/v1/tours', createTour);
 //app.delete('/api/v1/tours/:id', deleteTour);
 
 // use the route() method with the URL and attach HTML methods with the same route.
-app.route('/api/v1/tours').get(getAllTours).post(createTour);
-app.route('/api/v1/tours/:id').get(getTour).patch(updateTour).post(deleteTour);
+app
+  .route('/api/v1/tours')
+  .get(getAllTours)
+  .post(createTour);
+app
+  .route('/api/v1/tours/:id')
+  .get(getTour)
+  .patch(updateTour)
+  .post(deleteTour);
 
 const port = 3000;
-// use the listen method to create a server; pass in a port and a callback function that will be called as soon as the server starts listening.
 app.listen(port, () => {
   console.log(`App running on port ${port}...`);
 });
