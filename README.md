@@ -204,7 +204,7 @@ app.get('/api/v1/tours/:id', (request, response) => {
   });
 });
 ```  
-Run the server and make a request in Postman with a value of 5 ```127.0.0.1:3000/api/v1/tours/5```, and see the OUTPUT in console for the params:
+Run the server and make a GET request in Postman with a value of 5 ```127.0.0.1:3000/api/v1/tours/5```, and see the OUTPUT in console for the params:
 ```
 [nodemon] starting `node app.js`
 App running on port 3000...
@@ -242,7 +242,7 @@ app.get('/api/v1/tours/:id', (request, response) => {
   });
 });
 ```  
-Run the server and make a request in Postman with a value of 5 ```127.0.0.1:3000/api/v1/tours/5```; This will respond with the tour of id 5.
+Run the server and make a GET request in Postman with a value of 5 ```127.0.0.1:3000/api/v1/tours/5```; This will respond with the tour of id 5.
 ![Params image](images/expressParams.png)  
 <br/>
 
@@ -268,5 +268,5 @@ app.patch('/api/v1/tours/:id', (request, response) => {
   });
 });
 ```
-
+Run the server and make a PATCH request in Postman with a value of 5 ```127.0.0.1:3000/api/v1/tours/5```; This will respond with the tour of id 5.
 
