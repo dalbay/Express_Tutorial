@@ -134,15 +134,7 @@ Run the project and test the api in Postman:
 *add a new tour to the data-set*
 - Create a new Route
 - To send data from the client to the server on the request, add a **middleware** to the top-level - ```app.use(express.json());```.  
-- *Middleware:* can manipulate the request or response object, or execute any other code. It is mostly used for request. It is called middleware because it is a function that is executed in the middle of receiving the request and sending the response. We can say "in Express, everything is middleware" (even routers).  
-<br/>
-
-Examples for middleware are parsing body, logging, setting headers, router,... All the middleware together that we use in the app is called the **Middleware Stack**.
-<br/>
-
-The order of Middleware is defined in the code, which is important in express.  
-Think of the whole process as going through a pipeline, where the request and response objects are created at the beginning, and will go through each middleware where they will be processed. At the end of each middleware function, a ```next()``` function is called. The last middleware function is usually a route handler that uses the ```send()``` function to send the request back to the client. The whole process is called the **Request-Response Cycle**.  
-  ![express request-repsonse cycle](images/expressMiddleware.png)  
+- *Middleware:* can manipulate the request or response object, or execute any other code. It is mostly used for request. 
 ```JavaScript
 // Top-level Code:
 
@@ -398,11 +390,21 @@ app.route('/api/v1/tours/:id').get(getTour).patch(updateTour).post(deleteTour);
 <br/>
 
 ## Creating Our Own Middleware
-- create a middleware with - ```app.use```  and add a function that we want to add to our middleware stack.
-- in each middleware function, we have access to the request and response and also the next() function that we can add as an argument.
--  the route function are also middleware that get only executed for certain URL's
-- the middleware that we define are going to be applied for every single request. Don't add middleware after the route handlers - they send a result and therefore end the request-response cycle.
-- the signature arguments will always be the same - ```request, response, next```
+- To send data from the client to the server on the request, add a **middleware** to the top-level - ```app.use(express.json());```.  
+- *Middleware:* can manipulate the request or response object, or execute any other code. It is mostly used for request. It is called middleware because it is a function that is executed in the middle of receiving the request and sending the response. We can say "in Express, everything is middleware" (even routers).  
+<br/>
+
+Examples for middleware are parsing body, logging, setting headers, router,... All the middleware together that we use in the app is called the **Middleware Stack**.
+<br/>
+
+The order of Middleware is defined in the code, which is important in express.  
+Think of the whole process as going through a pipeline, where the request and response objects are created at the beginning, and will go through each middleware where they will be processed. At the end of each middleware function, a ```next()``` function is called. The last middleware function is usually a route handler that uses the ```send()``` function to send the request back to the client. The whole process is called the **Request-Response Cycle**.  
+  ![express request-repsonse cycle](images/expressMiddleware.png)  
+- To create our own middleware use ```app.use``` and pass in a callback function that we want to add to our middleware stack.
+- in each middleware function, we have access to the request and response and also the next() function that we can add as an argument to the callback function -```request, response, next```.
+-  Route functions are also middleware that get only executed for certain URL's
+- The middleware that we define are going to be applied for every single request. Don't add middleware after the route handlers - they send a result and therefore end the request-response cycle.
+
 ```JavaScript
 // Create a Middleware
 app.use(express.json());
