@@ -192,8 +192,9 @@ Add additional data in Postman for testing purpose:
 - we want to read this variable from the URL - define a route which can accept a variable.
 - create the variable with a colon in the URL with any name  ```app.get('/api/v1/tours/:id', (request, response) => {```  
 - we can access the variable with the assigned value to it with the params property; params are all the variables in the URL - ```request.params```.
-- Node that we can create as many variables as we want in the URL with a **/:variable_name**, and define the values by adding them to the enpoint. 
-- We could also make the parameters optional by adding a ? to the end of the variable name, like **/:variable_name?**. This way if we no longer have to specify it at the endpoint.  
+- Note that we can create as many variables as we want in the URL with a **/:variable_name**, and define the values by adding them to the enpoint. 
+  <br/>
+  We could also make the parameters optional by adding a ? to the end of the variable name, like **/:variable_name?**. This way if we no longer have to specify it at the endpoint.  
 ```JavaScript
 // Define a Route to GET ONE Tour by defining a variable:
 app.get('/api/v1/tours/:id', (request, response) => {
@@ -209,6 +210,21 @@ Run the server and make a request in Postman with a value of 5 ```127.0.0.1:3000
 App running on port 3000...
 { id: '5' }  --> here is the variable with the assigned value
 ```
+- Next, get the tour from the JSON file with that id. Use the ```find()``` array function and pass in a callback function. Convert the input at the endpoint to a number and find the tour in the tours array; send the tour data.
+```JavaScript
+// Define a Route to GET ONE Tour by defining a variable:
+app.get('/api/v1/tours/:id', (request, response) => {
+  console.log(request.params);
 
+  const id = request.params.id * 1; // converts string to number.
+  const tour = tours.find(element => element.id === id);
+  response.status(200).json({
+    status: 'success',
+    data: {
+      tour
+    }
+  });
+});
+```
 
 
