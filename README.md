@@ -210,13 +210,29 @@ Run the server and make a request in Postman with a value of 5 ```127.0.0.1:3000
 App running on port 3000...
 { id: '5' }  --> here is the variable with the assigned value
 ```
-- Next, get the tour from the JSON file with that id. Use the ```find()``` array function and pass in a callback function. Convert the input at the endpoint to a number and find the tour in the tours array; respond the tour data.
+- Next, get the tour from the JSON file with that id.  
+  Convert the input at the endpoint to a number.  
+  Use the ```find()``` array function and pass in a callback function.  
+  Make sure the value passed in is a valid id, if not send back a 404  
+  In a real world senario user input should always be validated.  
+  Respond the tour data.  
 ```JavaScript
 // Define a Route to GET ONE Tour by defining a variable:
 app.get('/api/v1/tours/:id', (request, response) => {
   console.log(request.params);
 
   const id = request.params.id * 1; // converts string to number.
+
+  if (id > tours.length) {
+    return response.status(404).json({
+      status: 'fail',
+      message: 'Invalid ID'
+    }); // exit the function
+  }
+  // we could also try to get the tour first,
+  // and then test and see if we got a tour:
+  // if(!tour){
+  
   const tour = tours.find(element => element.id === id);
   response.status(200).json({
     status: 'success',

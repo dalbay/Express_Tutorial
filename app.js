@@ -37,6 +37,17 @@ app.get('/api/v1/tours/:id', (request, response) => {
   console.log(request.params);
 
   const id = request.params.id * 1; // converts string to number.
+
+  if (id > tours.length) {
+    return response.status(404).json({
+      status: 'fail',
+      message: 'Invalid ID'
+    }); // exit the function
+  }
+  // we could also try to get the tour first,
+  // and then test and see if we got a tour:
+  // if(!tour){
+
   const tour = tours.find(element => element.id === id);
   response.status(200).json({
     status: 'success',
