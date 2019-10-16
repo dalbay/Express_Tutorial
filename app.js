@@ -35,7 +35,6 @@ app.get('/api/v1/tours', (request, response) => {
 // Define a Route to GET ONE Tour by defining a variable:
 app.get('/api/v1/tours/:id', (request, response) => {
   console.log(request.params); // params are all the variables in the URL
-
   response.status(200).json({
     status: 'success'
   });
