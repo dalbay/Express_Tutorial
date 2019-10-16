@@ -95,6 +95,19 @@ app.patch('/api/v1/tours/:id', (request, response) => {
   });
 });
 
+// Delete data
+app.delete('/api/v1/tours/:id', (request, response) => {
+  if (request.params.id * 1 > tours.length) {
+    response.status(404).json({
+      status: 'fail',
+      message: 'Invalid ID'
+    });
+  }
+  response.status(204).json({
+    status: 'success',
+    data: null
+  });
+});
 const port = 3000;
 // use the listen method to create a server; pass in a port and a callback function that will be called as soon as the server starts listening.
 app.listen(port, () => {

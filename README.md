@@ -269,4 +269,9 @@ app.patch('/api/v1/tours/:id', (request, response) => {
 });
 ```
 Run the server and make a PATCH request in Postman with a value of 5 and change the value of a property in the Body section ```127.0.0.1:3000/api/v1/tours/5```; The output will only display a message with the updated tour here.
+<br/>
+
+## Handling DELETE Requests
+- in this example we are not implementing the deleting from the source but only displaying a message, because we are only dealing with a file.  
+- the response for a DELETE request is usually 204. This means *no content*. We don't send data back, instead we send null.
 
