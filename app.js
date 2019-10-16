@@ -34,8 +34,24 @@ app.get('/api/v1/tours', (request, response) => {
 
 // Define a new Route to add a new Tour with the HTTP POST Request
 app.post('/api/v1/tours', (request, response) => {
-  console.log(request.body);
-  response.send('Done'); // always need to send response to finish the cycle.
+  // the id of an object is handled by the db - takes id of last object and adds 1
+  const newId = tours[tours.length - 1].id + 1;
+  const newTour = Object.assign({ id: newId, price: 230 }, request.body);
+
+  // push the new tour to the tours array
+  tours.push(newTour);
+  fs.writeFile(
+    `${__dirname}/dev-data/data/tours-simple.json`,
+    JSON.stringify(tours),
+    err => {
+      response.status(201).json({
+        status: 'success',
+        data: {
+          tour: newTour
+        }
+      });
+    }
+  );
 });
 
 const port = 3000;

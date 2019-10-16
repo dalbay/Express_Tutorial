@@ -141,12 +141,12 @@ Run the project and test the api in Postman:
 app.use(express.json());
 
 // Define a new Route to add a new Tour with the HTTP POST Request
-app.post('/app/v1/tours', (request, response) => {
+app.post('/api/v1/tours', (request, response) => {
   console.log(request.body);
   response.send('Done'); // always need to send response to finish the cycle.
 });
 ```
-- For testing purposes, Specify the Body in Postman - (raw JSON the data that we want to send to the server.) and Send data:
+- For testing purposes, specify the Body in Postman - (raw JSON the data that we want to send to the server.) and Send data:
 ![Postman post request](images/expressPost.png)  
 Console Output:  
 ```
@@ -154,5 +154,32 @@ Console Output:
 App running on port 3000...
 { name: 'Test api', duration: 10, difficulty: 'easy' }
 ```
+#### Example:
+Create a new tour and add it to the json file  
+```JavaScript
+// Define a new Route to add a new Tour with the HTTP POST Request
+app.post('/api/v1/tours', (request, response) => {
+  // the id of an object is handled by the db - takes id of last object and adds 1
+  const newId = tours[tours.length - 1].id + 1;
+  const newTour = Object.assign({ id: newId, price: 230 }, request.body);
+
+  // push the new tour to the tours array
+  tours.push(newTour);
+  fs.writeFile(
+    `${__dirname}/dev-data/data/tours-simple.json`,
+    JSON.stringify(tours),
+    err => {
+      response.status(201).json({   // 201 Created Status
+        status: 'success',
+        data: {
+          tour: newTour
+        }
+      });
+    }
+  );
+});
+```  
+Add additional data in Postman for testing purpose:
+![Post create tour object](images/expressNewTour.png)  
 
 
