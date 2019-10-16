@@ -401,4 +401,41 @@ app.route('/api/v1/tours/:id').get(getTour).patch(updateTour).post(deleteTour);
 - create a middleware with - ```app.use```  and add a function that we want to add to our middleware stack.
 - in each middleware function, we have access to the request and response and also the next() function that we can add as an argument.
 -  the route function are also middleware that get only executed for certain URL's
-- the middleware that we define are going to be applied for every single request. Don't add middleware after the route handlers - they don't implement the next() method.
+- the middleware that we define are going to be applied for every single request. Don't add middleware after the route handlers - they send a result and therefore end the request-response cycle.
+- the signature arguments will always be the same - ```request, response, next```
+```JavaScript
+// Create a Middleware
+app.use(express.json());
+
+// Create a Middleware
+app.use((request, response, next) => {
+  console.log("Hello from the middleware");
+  // next function moves to the next middleware.
+  next();
+});
+
+// Create a Middleware (manipulate the request function)
+app.use((request, response, next) => {
+  // define a property on the request object
+  request.requestTime = new Date().toISOString();
+  next();
+ });
+ 
+ // use the properties in the the route handlers:
+ // get ALL Tours functions:
+const getAllTours = (request, response) => {
+  console.log(request.requestTime); // use the property here
+  response.status(200).json({
+    status: 'success',
+    requestedAt: request.requestTime, // send the property
+    results: tours.length,
+    data: {
+      tours
+    }
+  });
+};
+
+```  
+Run the server and get request in postman; OUTPUT:
+![middleware get property](images/expressMiddleware1.png)  
+

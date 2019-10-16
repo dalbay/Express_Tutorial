@@ -17,6 +17,12 @@ app.use((request, response, next) => {
   next();
 });
 
+// Create a Middleware (manipulate the request function)
+app.use((request, response, next) => {
+  // define a property on the request object
+  request.requestTime = new Date().toISOString();
+  next();
+ });
 // Read Data (tours) - an array of JSON objects inside the dev-data folder.
 const tours = JSON.parse(
   fs.readFileSync(`${__dirname}/dev-data/data/tours-simple.json`)
@@ -24,8 +30,10 @@ const tours = JSON.parse(
 
 // get ALL Tours functions:
 const getAllTours = (request, response) => {
+  console.log(request.requestTime); // use the property here
   response.status(200).json({
     status: 'success',
+    requestedAt: request.requestTime, // send the property
     results: tours.length,
     data: {
       tours
