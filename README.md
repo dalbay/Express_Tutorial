@@ -132,11 +132,16 @@ Run the project and test the api in Postman:
 
 ## Handling POST Requests
 *add a new tour to the data-set*
-- Create a new Route and add a **middleware** to the top-level code.  
-  With HTTP Post we can send data from client to the server on the request; to put the data body on the request we need to include middleware - ```app.use(express.json());```  
-  *Middleware: can manipulate the request or response object, or execute any other code. It is mostly used for request. It is called middleware because it is a function that is executed in the middle of receiving the request and sending the response. We can say "in Express, everything is middleware" (even routers).*  
-  Examples for middleware are parsing body, logging, setting headers, router,... All the middleware together that we use in the app is called **Middleware Stack**. The order of Middleware is defined in the code, which is important in express.  
-  Think of the whole process as going through a pipeline, where the request and response objects are created at the beginning and will go through each middleware where they will be processed. At the end of each middleware function, a ```next()``` function is called. The last middleware function is usually a route handler that uses the ```send()``` function to send the request back to the client. The whole process is called the **Request-Response Cycle**.  
+- Create a new Route
+- To send data from the client to the server on the request, add a **middleware** to the top-level - ```app.use(express.json());```.  
+- *Middleware:* can manipulate the request or response object, or execute any other code. It is mostly used for request. It is called middleware because it is a function that is executed in the middle of receiving the request and sending the response. We can say "in Express, everything is middleware" (even routers).  
+<br/>
+
+Examples for middleware are parsing body, logging, setting headers, router,... All the middleware together that we use in the app is called the **Middleware Stack**.
+<br/>
+
+The order of Middleware is defined in the code, which is important in express.  
+Think of the whole process as going through a pipeline, where the request and response objects are created at the beginning, and will go through each middleware where they will be processed. At the end of each middleware function, a ```next()``` function is called. The last middleware function is usually a route handler that uses the ```send()``` function to send the request back to the client. The whole process is called the **Request-Response Cycle**.  
   ![express request-repsonse cycle](images/expressMiddleware.png)  
 ```JavaScript
 // Top-level Code:
