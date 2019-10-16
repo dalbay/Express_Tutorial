@@ -399,3 +399,6 @@ app.route('/api/v1/tours/:id').get(getTour).patch(updateTour).post(deleteTour);
 
 ## Creating Our Own Middleware
 - create a middleware with - ```app.use```  and add a function that we want to add to our middleware stack.
+- in each middleware function, we have access to the request and response and also the next() function that we can add as an argument.
+-  the route function are also middleware that get only executed for certain URL's
+- the middleware that we define are going to be applied for every single request. Don't add middleware after the route handlers - they don't implement the next() method.

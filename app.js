@@ -11,7 +11,11 @@ const app = express();
 app.use(express.json());
 
 // Create a Middleware
-app.use()
+app.use((request, response, next) => {
+  console.log("Hello from the middleware");
+  // next function moves to the next middleware.
+  next();
+});
 
 // Read Data (tours) - an array of JSON objects inside the dev-data folder.
 const tours = JSON.parse(
