@@ -225,6 +225,9 @@ app.get('/api/v1/tours/:id', (request, response) => {
     }
   });
 });
-```
+```  
+Run the server and make a request in Postman with a value of 5 ```127.0.0.1:3000/api/v1/tours/5```, and see the OUTPUT in console for the params:  
+![Params image](images/expressParams.png)  
+
 
 
