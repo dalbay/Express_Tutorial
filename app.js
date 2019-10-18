@@ -8,6 +8,11 @@ const morgan = require('morgan');
 // create a standard variable called app
 const app = express();
 
+// Read Data (tours) - an array of JSON objects inside the dev-data folder.
+const tours = JSON.parse(
+  fs.readFileSync(`${__dirname}/dev-data/data/tours-simple.json`)
+);
+
 //--------------------------------------------------------------
 // 1) MIDDLEWARES:
 
@@ -15,7 +20,7 @@ const app = express();
 app.use(express.json());
 
 // Create a Middleware:
-app.use(morgan('dev')); // passed in argument - how we want the loggin to look like.
+app.use(morgan('dev')); // passed in argument - how we want the loggin to look like. This 3rd middleware also calls a function with the next() method to move on.
 
 // Create a Middleware
 app.use((request, response, next) => {
@@ -26,15 +31,10 @@ app.use((request, response, next) => {
 
 // Create a Middleware (manipulate the request function)
 app.use((request, response, next) => {
-  // define a property on the request object
+  // Define a Property on the Request Object that we want to send back
   request.requestTime = new Date().toISOString();
   next();
 });
-
-// Read Data (tours) - an array of JSON objects inside the dev-data folder.
-const tours = JSON.parse(
-  fs.readFileSync(`${__dirname}/dev-data/data/tours-simple.json`)
-);
 
 // 2) ROUTE HANDLERS:
 
@@ -43,7 +43,7 @@ const getAllTours = (request, response) => {
   console.log(request.requestTime); // use the property here
   response.status(200).json({
     status: 'success',
-    requestedAt: request.requestTime, // send the property
+    requestedAt: request.requestTime, // send the property defined in middleware
     results: tours.length,
     data: {
       tours
@@ -53,8 +53,6 @@ const getAllTours = (request, response) => {
 
 // get a Tour function:
 const getTour = (request, response) => {
-  console.log(request.params);
-
   const id = request.params.id * 1;
 
   if (id > tours.length) {

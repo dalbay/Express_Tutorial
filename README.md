@@ -418,7 +418,7 @@ app.use((request, response, next) => {
 
 // Create a Middleware (manipulate the request function)
 app.use((request, response, next) => {
-  // define a property on the request object, sending back the date/time
+  // Define a Property on the Request Object, (sending back the date/time)
   request.requestTime = new Date().toISOString();
   next();
  });
@@ -429,7 +429,7 @@ const getAllTours = (request, response) => {
   console.log(request.requestTime); // use the property here
   response.status(200).json({
     status: 'success',
-    requestedAt: request.requestTime, // send the property
+    requestedAt: request.requestTime, // send back the Property Defined in Middleware
     results: tours.length,
     data: {
       tours
@@ -442,6 +442,12 @@ Run the server and get request in postman; OUTPUT:
 ![middleware get property](images/expressMiddleware1.png)  
 
 ## Using 3rd-Party Middleware
-- Popular login middleware "Morgan" helps us see requests in the console.
-- 
+- Popular login middleware "Morgan" helps us see requests data in the console.
+- *Add to package.json:*```npm i morgan``` - is not a dev-dependency but a regular dependency. 
+- *Require in code:*```const morgan = require('morgan');```
+- *Use middleware:* ```app.use(morgan('dev'));``` the passeed in argument describes how we want the logged in to look like.  
+Run the application, and make a request in postman. The data about the request will be displayed in the console:  
+``` GET /api/v1/tours/ 200 4.592 ms - 8703 ```  
+- Here  is a list of middleware that is recommended in express;
+
 
