@@ -697,4 +697,6 @@ userRouter
 
 // use the router as a middleware:
 app.use('api/v1/users', userRouter);
-```
+```  
+<br/>
+#### Refactor the Application - A Better File Structure
