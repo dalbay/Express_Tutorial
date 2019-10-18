@@ -517,11 +517,12 @@ app.use(function (err, req, res, next) {
 4. Built-in middleware
 Express has the following built-in middleware functions:
 
-express.static serves static assets such as HTML files, images, and so on.
-express.json parses incoming requests with JSON payloads. NOTE: Available with Express 4.16.0+
-express.urlencoded parses incoming requests with URL-encoded payloads. NOTE: Available with Express 4.16.0+
-Built-in middleware
-Third-party middleware
+* express.static serves static assets such as HTML files, images, and so on.
+* express.json parses incoming requests with JSON payloads. NOTE: Available with Express 4.16.0+
+* express.urlencoded parses incoming requests with URL-encoded payloads. NOTE: Available with Express 4.16.0+
+5. Third-party middleware
+Use third-party middleware to add functionality to Express apps. (more details in later section)
+
 ## Creating Our Own Middleware
 - To create our own middleware use ```app.use``` and pass in a callback function that we want to add to our middleware stack.
 - in each middleware function, we have access to the request and response and also the next() function that we can add as an argument to the callback function -```request, response, next```.
