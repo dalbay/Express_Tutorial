@@ -399,26 +399,26 @@ app
 
 ## Middleware and the Request-Response Cycle
 *Express is a routing and middleware web framework that has minimal functionality of its own: An Express application is essentially a series of middleware function calls.*
-- **Middleware** functions are functions that have access to the **request object**(req), the **respnse object**(res), and the next middleware function in the application's request-response cycle. 
+- **Middleware** functions are functions that have access to the **request object**(req), the **response object**(res), and the next middleware function in the application's request-response cycle. 
 - Middleware functions can 
   - manipulate the request or response object, 
   - execute any other code, 
   - end the request-response cycle, or 
   - call the next middleware function in the stack. 
 - It is called middleware because it is a function that is executed in the middle of receiving the request and sending the response. 
-- We can say "in Express, everything is middleware" (even routers).  
+- We can say "in Express, everything is middleware" (even routers)".  
 - It is mostly used for request - to send data from the client to the server on the request, add a **middleware** to the top-level - ```app.use(express.json());```.   
 Other example for middleware are parsing body, logs, setting headers, router,... 
-- All the middleware together that we use in the app is called the **Middleware Stack**.
-- The order of Middleware is defined in the code, which is important in express.  
+- All the middleware functions that we use together in the app is called the **Middleware Stack**.
+- The order of the middleware functions is defined in the code, which is important in express.  
 Think of the whole process as going through a pipeline, where the request and response objects are created at the beginning, and will go through each middleware where they will be processed. 
 - At the end of each middleware function, a ```next()``` function is called. 
 - The last middleware function is usually a route handler that uses the ```send()``` function to send the request back to the client. The whole process is called the **Request-Response Cycle**.  
   ![express request-repsonse cycle](images/expressMiddleware.png)  
 <br/>
 
-An Express application can use the following types of middleware:
-- Application-level middleware:  
+*An Express application can use the following types of middleware:*
+1. *Application-level middleware:*  
   Bind application-level middleware to an instance of the app object by using the ```app.use()``` and ```app.METHOD()``` functions, where METHOD is the HTTP method of the request that the middleware function handles (such as GET, PUT, or POST) in lowercase.  
 
 This example shows a middleware function with no mount path. The function is executed every time the app receives a request.
@@ -461,9 +461,65 @@ app.get('/user/:id', function (req, res, next) {
 app.get('/user/:id', function (req, res, next) {
   res.send('special')
 })
+```  
+2. *Router-level Middleware:*
+Router-level middleware works in the same way as application-level middleware, except it is bound to an instance of ```express.Router()```.  
+Load router-level middleware by using the ```router.use()``` and ```router.METHOD()``` functions.  
+
+The following example code replicates the middleware system that is shown above for application-level middleware, by using router-level middleware:
+```JavaScript
+var app = express()
+var router = express.Router()
+
+// a middleware function with no mount path. This code is executed for every request to the router
+router.use(function (req, res, next) {
+  console.log('Time:', Date.now())
+  next()
+})
+
+// a middleware sub-stack shows request info for any type of HTTP request to the /user/:id path
+router.use('/user/:id', function (req, res, next) {
+  console.log('Request URL:', req.originalUrl)
+  next()
+}, function (req, res, next) {
+  console.log('Request Type:', req.method)
+  next()
+})
+
+// a middleware sub-stack that handles GET requests to the /user/:id path
+router.get('/user/:id', function (req, res, next) {
+  // if the user ID is 0, skip to the next router
+  if (req.params.id === '0') next('route')
+  // otherwise pass control to the next middleware function in this stack
+  else next()
+}, function (req, res, next) {
+  // render a regular page
+  res.render('regular')
+})
+
+// handler for the /user/:id path, which renders a special page
+router.get('/user/:id', function (req, res, next) {
+  console.log(req.params.id)
+  res.render('special')
+})
+
+// mount the router on the app
+app.use('/', router)
+```  
+3. Error-handling Middleware  
+Define error-handling middleware functions in the same way as other middleware functions, except with four arguments instead of three, specifically with the signature (err, req, res, next)):
+```JavaScript
+app.use(function (err, req, res, next) {
+  console.error(err.stack)
+  res.status(500).send('Something broke!')
+})
 ```
-Router-level middleware
-Error-handling middleware
+4. Built-in middleware
+Express has the following built-in middleware functions:
+
+express.static serves static assets such as HTML files, images, and so on.
+express.json parses incoming requests with JSON payloads. NOTE: Available with Express 4.16.0+
+express.urlencoded parses incoming requests with URL-encoded payloads. NOTE: Available with Express 4.16.0+
 Built-in middleware
 Third-party middleware
 ## Creating Our Own Middleware
