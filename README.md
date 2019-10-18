@@ -583,8 +583,9 @@ Run the server and get request in postman; OUTPUT:
 - *Use middleware:* ```app.use(morgan('dev'));``` the passeed in argument describes how we want the log in to look like.  
 Run the application, and make a request in postman. The data about the request will be displayed in the console:  
 ``` GET /api/v1/tours/ 200 4.592 ms - 8703 ```  
-- Here  is a list of middleware that is recommended in express;
-| Middleware module	        | Description	           | Replaces built-in function (Express 3)|
+- Here  is a list of middleware that is recommended in express;  
+*The Express middleware modules listed here are maintained by the Expressjs team.*
+| Middleware module	        | Description	 | Replaces built-in function (Express 3)|
 | ------------- |---------------| ------|
 | body-parser      | 	Parse HTTP request body. | express.bodyParser |
 |compression|	Compress HTTP responses.	|express.compress|
@@ -605,4 +606,24 @@ cookie-parser|	Parse cookie header and populate req.cookies.|	express.cookiePars
 |timeout|	Set a timeout period for HTTP request processing.|express.timeout|
 |vhost	|Create virtual domains.	|express.vhost|
 
+<br/>
+*These are some additional popular middleware modules.*  
+| Middleware module	        | Description          |
+| ------------- |--------------| 
+|   cls-rtracer    | 	Middleware for CLS-based request id generation. An out-of-the-box solution for adding request ids into your logs.		| 
+|  connect-image-optimus     | 		Optimize image serving. Switches images to .webp or .jxr, if possible.	| 
+|   express-debug    | 		Development tool that adds information about template variables (locals), current session, and so on.	| 
+|   express-partial-response    | 	Filters out parts of JSON responses based on the fields query-string; by using Google API’s Partial Response.		| 
+|   express-simple-cdn    | 	Use a CDN for static assets, with multiple host support.		| 
+|    express-slash   | 	Handles routes with and without trailing slashes.		| 
+|   express-stormpath    | 	User storage, authentication, authorization, SSO, and data security.		| 
+|  express-uncapitalize     | 	Redirects HTTP requests containing uppercase to a canonical lowercase form.		| 
+|   helmet    | 	Helps secure your apps by setting various HTTP headers.			| 
+|   join-io    | 		Joins files on the fly to reduce the requests count.		| 
+|   passport    | 	Authentication using “strategies” such as OAuth, OpenID and many others. See http://passportjs.org/ for more information.			| 
+|    static-expiry   | 		Fingerprint URLs or caching headers for static assets.	| 
+| view-helpers      | 	Common helper methods for views.
+		| 
+|   sriracha-admin	    | 	Dynamically generate an admin site for Mongoose.
+		| 
 
