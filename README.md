@@ -585,13 +585,13 @@ Run the application, and make a request in postman. The data about the request w
 ``` GET /api/v1/tours/ 200 4.592 ms - 8703 ```  
 - Here  is a list of middleware that is recommended in express;  
 *The Express middleware modules listed here are maintained by the Expressjs team.*
-| Middleware module	        | Description	 | Replaces built-in function (Express 3)|
-| ------------- |---------------| ------|
+| Middleware module | Description	 | Replaces built-in function (Express 3)|
+|-------------------|----------------|---------------------------------------|
 | body-parser      | 	Parse HTTP request body. | express.bodyParser |
 |compression|	Compress HTTP responses.	|express.compress|
 |connect-rid	|Generate unique request ID.|	NA|
 cookie-parser|	Parse cookie header and populate req.cookies.|	express.cookieParser|
-|cookie-session|	Establish cookie-based sessions.	|express.cookieSession
+|cookie-session|	Establish cookie-based sessions.	|express.cookieSession|
 |cors	|Enable cross-origin resource sharing (CORS) with various options.|	NA|
 |csurf	|Protect from CSRF exploits.	|express.csrf|
 |errorhandler|	Development error-handling/debugging.|	express.errorHandler|
@@ -608,6 +608,7 @@ cookie-parser|	Parse cookie header and populate req.cookies.|	express.cookiePars
 
 <br/>
 *These are some additional popular middleware modules.*  
+
 | Middleware module	        | Description          |
 | ------------- |--------------| 
 |   cls-rtracer    | 	Middleware for CLS-based request id generation. An out-of-the-box solution for adding request ids into your logs.		| 
