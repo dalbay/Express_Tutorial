@@ -627,12 +627,12 @@ These are some additional popular middleware modules:
 |    static-expiry   | 		Fingerprint URLs or caching headers for static assets.	| 
 | view-helpers      | 	Common helper methods for views.  |
 |   sriracha-admin	    | 	Dynamically generate an admin site for Mongoose.
-		| 
+
+<br/>
 
 #### Implementing the "Users" Routes
-- For this application, implement routes for user rescourse.
-  For example we can create user accounts, have different user roles  
-  Add the routes, the responses for the get/post/... requests, and the 5 functions  
+In this application, we will implement routes for user rescourse; user accounts, user roles  
+To do so, add the routes, the responses for the get/post/... requests, and the functions for these request methods.
 
 ```JavaScript
 // add the routes
