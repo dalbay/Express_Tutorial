@@ -586,8 +586,8 @@ Run the application, and make a request in postman. The data about the request w
 - Here  is a list of middleware that is recommended in express;  
 *The Express middleware modules listed here are maintained by the Expressjs team.*  
 <br/>
-| Middleware module | Description	 | Replaces built-in function (Express 3)|
-|-------------------|----------------|---------------------------------------|
+| Middleware module | Description	 | Replaces built-in function (Express 3) |
+| ----------------- | ------------- | --------------------------------- |
 | body-parser      | 	Parse HTTP request body. | express.bodyParser |
 |compression|	Compress HTTP responses.	|express.compress|
 |connect-rid	|Generate unique request ID.|	NA|
