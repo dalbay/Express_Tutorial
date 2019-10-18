@@ -521,12 +521,23 @@ app.use(function (err, req, res, next) {
   * express.json parses incoming requests with JSON payloads. NOTE: Available with Express 4.16.0+
   * express.urlencoded parses incoming requests with URL-encoded payloads. NOTE: Available with Express 4.16.0+
 5. *Third-party middleware:*  
-  Use third-party middleware to add functionality to Express apps. (more details in later section)
+  Use third-party middleware to add functionality to Express apps. (more details in later section)  
+  The following example illustrates installing and loading the cookie-parsing middleware function cookie-parser.
+```JavaScript
+ // -- $ npm install cookie-parser
+var express = require('express')
+var app = express()
+var cookieParser = require('cookie-parser')
+
+// load the cookie-parsing middleware
+app.use(cookieParser())
+```
+< br/>
 
 ## Creating Our Own Middleware
 - To create our own middleware use ```app.use``` and pass in a callback function that we want to add to our middleware stack.
 - in each middleware function, we have access to the request and response and also the next() function that we can add as an argument to the callback function -```request, response, next```.
--  Route functions are also middleware that get only executed for certain URL's
+- Route functions are also middleware that get only executed for certain URL's
 - The middleware that we define are going to be applied for every single request. Don't add middleware after the route handlers - they send a result and therefore end the request-response cycle.
 
 ```JavaScript
@@ -550,7 +561,7 @@ app.use((request, response, next) => {
  // use the properties in the the route handlers:
  // get ALL Tours functions:
 const getAllTours = (request, response) => {
-  console.log(request.requestTime); // use the property here
+  console.log(request.requestTime); // use the Property Defined in Middleware
   response.status(200).json({
     status: 'success',
     requestedAt: request.requestTime, // send back the Property Defined in Middleware
