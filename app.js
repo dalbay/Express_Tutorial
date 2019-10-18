@@ -156,25 +156,41 @@ const deleteUser = (req, res) => {
   });
 };
 // 3) ROUTES
-app
-  .route('/api/v1/tours')
+
+// create new router for the tours
+const tourRouter = express.Router();
+
+// use that router:
+tourRouter
+  .route('/')
   .get(getAllTours)
   .post(createTour);
-app
-  .route('/api/v1/tours/:id')
+tourRouter
+  .route('/:id')
   .get(getTour)
   .patch(updateTour)
   .delete(deleteTour);
 
-app
-  .route('/api/v1/users')
+// use the router as a middleware (Mounting a Router):
+app.use('/api/v1/tours', tourRouter);
+
+// create a new router for the users
+const userRouter = express.Router();
+
+// use that router:
+userRouter
+  .route('/')
   .get(getAllUsers)
   .post(createUser);
-app
-  .route('/api/v1/users/:id')
+userRouter
+  .route('/:id')
   .get(getUser)
   .patch(updateUser)
   .delete(deleteUser);
+
+// use the router as a middleware:
+app.use('api/v1/users', userRouter);
+
 // 4) START SERVER
 const port = 3000;
 app.listen(port, () => {

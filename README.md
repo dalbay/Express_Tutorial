@@ -655,4 +655,46 @@ const getAllUsers = (req, res) => {
   });
 };
 . . . 
+```  
+#### Creating and Mounting Multiple Routers
+- create multiple routers and use a process called mounting
+- our goal is to separate code into multiple files - a separate file for the user routes; one for the tour routes; and different files for the handlers as well.  
+- the four different routes that we have are kind of on the same router - the router is the app object. If we want to seperate these routes into two different files, we need to create a router, save it to a variable; and use it with that variable name instead of app.
+- Create a sub-application; this is how we connect the routers with the application(by using it as a middleware) - ```app.use('/api/v1/tours', tourRouter);``` This process is called **Mounting Router** - mounting a router onto a route.
+```JavaScript
+// create new router for the tours
+const tourRouter = express.Router();
+
+// use that router:
+tourRouter
+  .route('/')
+  .get(getAllTours)
+  .post(createTour);
+tourRouter
+  .route('/:id')
+  .get(getTour)
+  .patch(updateTour)
+  .delete(deleteTour);
+
+// use the router as a middleware (Mounting a Router):
+app.use('/api/v1/tours', tourRouter);
+
+
+
+// create a new router for the users
+const userRouter = express.Router();
+
+// use that router:
+userRouter
+  .route('/')
+  .get(getAllUsers)
+  .post(createUser);
+userRouter
+  .route('/:id')
+  .get(getUser)
+  .patch(updateUser)
+  .delete(deleteUser);
+
+// use the router as a middleware:
+app.use('api/v1/users', userRouter);
 ```
