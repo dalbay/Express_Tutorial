@@ -294,6 +294,7 @@ app.delete('/api/v1/tours/:id', (request, response) => {
 Run the server and make a DELETE request in Postman with a value of 5  ```127.0.0.1:3000/api/v1/tours/5```; The output in postman is no content at all.  
 <br/>
 
+
 ## Refactoring Routes
 - refactor the code so that the routes are together and the handler functions are also together.
 - export the handler functions into their own functions. 
@@ -382,24 +383,90 @@ const deleteTour = (request, response) => {
   });
 };
 
-// use route() method with the URL and attach HTML methods with the same route.
+// ROUTES - use route() method with the URL and attach HTML methods with the same route.
 
-app.route('/api/v1/tours').get(getAllTours).post(createTour);
-app.route('/api/v1/tours/:id').get(getTour).patch(updateTour).post(deleteTour);
+app
+  .route('/api/v1/tours')
+  .get(getAllTours)
+  .post(createTour);
+app
+  .route('/api/v1/tours/:id')
+  .get(getTour)
+  .patch(updateTour)
+  .post(deleteTour);
 ```  
 <br/>
 
-## Creating Our Own Middleware
-- To send data from the client to the server on the request, add a **middleware** to the top-level - ```app.use(express.json());```.  
-- *Middleware:* can manipulate the request or response object, or execute any other code. It is mostly used for request. It is called middleware because it is a function that is executed in the middle of receiving the request and sending the response. We can say "in Express, everything is middleware" (even routers).  
-<br/>
-
-Examples for middleware are parsing body, logging, setting headers, router,... All the middleware together that we use in the app is called the **Middleware Stack**.
-<br/>
-
-The order of Middleware is defined in the code, which is important in express.  
-Think of the whole process as going through a pipeline, where the request and response objects are created at the beginning, and will go through each middleware where they will be processed. At the end of each middleware function, a ```next()``` function is called. The last middleware function is usually a route handler that uses the ```send()``` function to send the request back to the client. The whole process is called the **Request-Response Cycle**.  
+## Middleware and the Request-Response Cycle
+*Express is a routing and middleware web framework that has minimal functionality of its own: An Express application is essentially a series of middleware function calls.*
+- **Middleware** functions are functions that have access to the **request object**(req), the **respnse object**(res), and the next middleware function in the application's request-response cycle. 
+- Middleware functions can 
+  - manipulate the request or response object, 
+  - execute any other code, 
+  - end the request-response cycle, or 
+  - call the next middleware function in the stack. 
+- It is called middleware because it is a function that is executed in the middle of receiving the request and sending the response. 
+- We can say "in Express, everything is middleware" (even routers).  
+- It is mostly used for request - to send data from the client to the server on the request, add a **middleware** to the top-level - ```app.use(express.json());```.   
+Other example for middleware are parsing body, logs, setting headers, router,... 
+- All the middleware together that we use in the app is called the **Middleware Stack**.
+- The order of Middleware is defined in the code, which is important in express.  
+Think of the whole process as going through a pipeline, where the request and response objects are created at the beginning, and will go through each middleware where they will be processed. 
+- At the end of each middleware function, a ```next()``` function is called. 
+- The last middleware function is usually a route handler that uses the ```send()``` function to send the request back to the client. The whole process is called the **Request-Response Cycle**.  
   ![express request-repsonse cycle](images/expressMiddleware.png)  
+<br/>
+
+An Express application can use the following types of middleware:
+- Application-level middleware:  
+  Bind application-level middleware to an instance of the app object by using the ```app.use()``` and ```app.METHOD()``` functions, where METHOD is the HTTP method of the request that the middleware function handles (such as GET, PUT, or POST) in lowercase.  
+
+This example shows a middleware function with no mount path. The function is executed every time the app receives a request.
+```JavaScript
+var app = express()
+
+app.use(function (req, res, next) {
+  console.log('Time:', Date.now())
+  next()
+})
+```  
+This example shows a middleware function mounted on the /user/:id path. The function is executed for any type of HTTP request on the /user/:id path.
+```JavaScript
+app.use('/user/:id', function (req, res, next) {
+  console.log('Request Type:', req.method)
+  next()
+})
+```  
+This example shows a route and its handler function (middleware system). The function handles GET requests to the /user/:id path.
+```JavaScript
+app.get('/user/:id', function (req, res, next) {
+  res.send('USER')
+})
+```   
+To skip the rest of the middleware functions from a router middleware stack, call ```next('route')``` to pass control to the next route.  
+NOTE: next('route') will work only in middleware functions that were loaded by using the app.METHOD() or router.METHOD() functions.  
+This example shows a middleware sub-stack that handles GET requests to the /user/:id path.  
+```JavaScript
+app.get('/user/:id', function (req, res, next) {
+  // if the user ID is 0, skip to the next route
+  if (req.params.id === '0') next('route')
+  // otherwise pass the control to the next middleware function in this stack
+  else next()
+}, function (req, res, next) {
+  // send a regular response
+  res.send('regular')
+})
+
+// handler for the /user/:id path, which sends a special response
+app.get('/user/:id', function (req, res, next) {
+  res.send('special')
+})
+```
+Router-level middleware
+Error-handling middleware
+Built-in middleware
+Third-party middleware
+## Creating Our Own Middleware
 - To create our own middleware use ```app.use``` and pass in a callback function that we want to add to our middleware stack.
 - in each middleware function, we have access to the request and response and also the next() function that we can add as an argument to the callback function -```request, response, next```.
 -  Route functions are also middleware that get only executed for certain URL's
@@ -445,7 +512,7 @@ Run the server and get request in postman; OUTPUT:
 - Popular login middleware "Morgan" helps us see requests data in the console.
 - *Add to package.json:*```npm i morgan``` - is not a dev-dependency but a regular dependency. 
 - *Require in code:*```const morgan = require('morgan');```
-- *Use middleware:* ```app.use(morgan('dev'));``` the passeed in argument describes how we want the logged in to look like.  
+- *Use middleware:* ```app.use(morgan('dev'));``` the passeed in argument describes how we want the log in to look like.  
 Run the application, and make a request in postman. The data about the request will be displayed in the console:  
 ``` GET /api/v1/tours/ 200 4.592 ms - 8703 ```  
 - Here  is a list of middleware that is recommended in express;
