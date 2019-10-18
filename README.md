@@ -591,6 +591,11 @@ Run the application, and make a request in postman. The data about the request w
 | body-parser      | 	Parse HTTP request body. | express.bodyParser |
 |compression|	Compress HTTP responses.	|express.compress|
 |connect-rid	|Generate unique request ID.|	NA|
+
+
+
+<br/>
+
 cookie-parser|	Parse cookie header and populate req.cookies.|	express.cookieParser|
 |cookie-session|	Establish cookie-based sessions.	|express.cookieSession|
 |cors	|Enable cross-origin resource sharing (CORS) with various options.|	NA|
