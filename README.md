@@ -584,8 +584,8 @@ Run the server and get request in postman; OUTPUT:
 Run the application, and make a request in postman. The data about the request will be displayed in the console:  
 ``` GET /api/v1/tours/ 200 4.592 ms - 8703 ```  
 - Here  is a list of middleware that is recommended in express;  
-*The Express middleware modules listed here are maintained by the Expressjs team.*  
-<br/>
+ 
+The Express middleware modules listed here are maintained by the Expressjs team:  
 
 | Middleware module  | Description	 | Replaces built-in function (Express 3) |
 | ----------------- | ------------- | --------------------------------- |
@@ -609,7 +609,7 @@ Run the application, and make a request in postman. The data about the request w
 | vhost	| Create virtual domains.	| express.vhost |
 
 <br/>
-*These are some additional popular middleware modules.*  
+These are some additional popular middleware modules:  
 
 | Middleware module	        | Description          |
 | ------------- |--------------| 
@@ -625,8 +625,34 @@ Run the application, and make a request in postman. The data about the request w
 |   join-io    | 		Joins files on the fly to reduce the requests count.		| 
 |   passport    | 	Authentication using “strategies” such as OAuth, OpenID and many others. See http://passportjs.org/ for more information.			| 
 |    static-expiry   | 		Fingerprint URLs or caching headers for static assets.	| 
-| view-helpers      | 	Common helper methods for views.
-		| 
+| view-helpers      | 	Common helper methods for views.  |
 |   sriracha-admin	    | 	Dynamically generate an admin site for Mongoose.
 		| 
 
+#### Implementing the "Users" Routes
+- For this application, implement routes for user rescourse.
+  For example we can create user accounts, have different user roles  
+  Add the routes, the responses for the get/post/... requests, and the 5 functions  
+
+```JavaScript
+// add the routes
+app
+  .route('/api/v1/users')
+  .get(getAllUsers)
+  .post(createUser);
+app
+  .route('/api/v1/users/:id')
+  .get(getUser)
+  .patch(updateUser)
+  .delete(deleteUser);
+
+// next, create the functions for the http request calls(for now so they don't cause an error)
+// get all users:
+const getAllUsers = (req, res) => {
+  res.status(500).json({
+    status: 'error',
+    message: 'This route is not yet defined!'
+  });
+};
+. . . 
+```

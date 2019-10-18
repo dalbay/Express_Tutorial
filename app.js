@@ -120,6 +120,41 @@ const deleteTour = (request, response) => {
   });
 };
 
+// get all users:
+const getAllUsers = (req, res) => {
+  res.status(500).json({
+    status: 'error',
+    message: 'This route is not yet defined!'
+  });
+};
+// get one user:
+const getUser = (req, res) => {
+  res.status(500).json({
+    status: 'error',
+    message: 'This route is not yet defined!'
+  });
+};
+// get all users:
+const createUser = (req, res) => {
+  res.status(500).json({
+    status: 'error',
+    message: 'This route is not yet defined!'
+  });
+};
+// get all users:
+const updateUser = (req, res) => {
+  res.status(500).json({
+    status: 'error',
+    message: 'This route is not yet defined!'
+  });
+};
+// get all users:
+const deleteUser = (req, res) => {
+  res.status(500).json({
+    status: 'error',
+    message: 'This route is not yet defined!'
+  });
+};
 // 3) ROUTES
 app
   .route('/api/v1/tours')
@@ -129,8 +164,17 @@ app
   .route('/api/v1/tours/:id')
   .get(getTour)
   .patch(updateTour)
-  .post(deleteTour);
+  .delete(deleteTour);
 
+app
+  .route('/api/v1/users')
+  .get(getAllUsers)
+  .post(createUser);
+app
+  .route('/api/v1/users/:id')
+  .get(getUser)
+  .patch(updateUser)
+  .delete(deleteUser);
 // 4) START SERVER
 const port = 3000;
 app.listen(port, () => {
