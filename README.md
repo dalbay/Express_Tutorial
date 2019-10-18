@@ -646,7 +646,7 @@ app
   .patch(updateUser)
   .delete(deleteUser);
 
-// next, create the functions for the http request calls(for now so they don't cause an error)
+// next, create the functions for the http request calls(implement later)
 // get all users:
 const getAllUsers = (req, res) => {
   res.status(500).json({
@@ -654,11 +654,14 @@ const getAllUsers = (req, res) => {
     message: 'This route is not yet defined!'
   });
 };
+// // get one user:
 . . . 
 ```  
+<br/>
+
 #### Creating and Mounting Multiple Routers
-- create multiple routers and use a process called mounting
-- our goal is to separate code into multiple files - a separate file for the user routes; one for the tour routes; and different files for the handlers as well.  
+- create multiple routers and use a process called Mounting
+- our goal is to *separate code into multiple files* - a separate file for the user routes; one for the tour routes; and different files for the handlers as well.  
 - the four different routes that we have are kind of on the same router - the router is the app object. If we want to seperate these routes into two different files, we need to create a router, save it to a variable; and use it with that variable name instead of app.
 - Create a sub-application; this is how we connect the routers with the application(by using it as a middleware) - ```app.use('/api/v1/tours', tourRouter);``` This process is called **Mounting Router** - mounting a router onto a route.
 ```JavaScript
@@ -698,5 +701,7 @@ userRouter
 // use the router as a middleware:
 app.use('api/v1/users', userRouter);
 ```  
+
 <br/>
+
 #### Refactor the Application - A Better File Structure
