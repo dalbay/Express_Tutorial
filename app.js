@@ -1,18 +1,25 @@
 // use File System
 const fs = require('fs');
-
 // use Express
 const express = require('express');
+// use Morgan
+const morgan = require('morgan');
 
 // create a standard variable called app
 const app = express();
 
+//--------------------------------------------------------------
+// 1) MIDDLEWARES:
+
 // Create a Middleware
 app.use(express.json());
 
+// Create a Middleware:
+app.use(morgan('dev')); // passed in argument - how we want the loggin to look like.
+
 // Create a Middleware
 app.use((request, response, next) => {
-  console.log("Hello from the middleware");
+  console.log('Hello from the middleware');
   // next function moves to the next middleware.
   next();
 });
@@ -22,11 +29,14 @@ app.use((request, response, next) => {
   // define a property on the request object
   request.requestTime = new Date().toISOString();
   next();
- });
+});
+
 // Read Data (tours) - an array of JSON objects inside the dev-data folder.
 const tours = JSON.parse(
   fs.readFileSync(`${__dirname}/dev-data/data/tours-simple.json`)
 );
+
+// 2) ROUTE HANDLERS:
 
 // get ALL Tours functions:
 const getAllTours = (request, response) => {
@@ -112,22 +122,7 @@ const deleteTour = (request, response) => {
   });
 };
 
-// Define a Route to get ALL Tours:
-//app.get('/api/v1/tours', getAllTours);
-
-// Define a Route to GET ONE Tour
-//app.get('/api/v1/tours/:id', getTour);
-
-// Define a new Route to add a new Tour
-//app.post('/api/v1/tours', createTour);
-
-// Update a Tour
-//app.patch('/api/v1/tours/:id', updateTour);
-
-// Delete data
-//app.delete('/api/v1/tours/:id', deleteTour);
-
-// use the route() method with the URL and attach HTML methods with the same route.
+// 3) ROUTES
 app
   .route('/api/v1/tours')
   .get(getAllTours)
@@ -138,6 +133,7 @@ app
   .patch(updateTour)
   .post(deleteTour);
 
+// 4) START SERVER
 const port = 3000;
 app.listen(port, () => {
   console.log(`App running on port ${port}...`);

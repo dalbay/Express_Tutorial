@@ -418,7 +418,7 @@ app.use((request, response, next) => {
 
 // Create a Middleware (manipulate the request function)
 app.use((request, response, next) => {
-  // define a property on the request object
+  // define a property on the request object, sending back the date/time
   request.requestTime = new Date().toISOString();
   next();
  });
@@ -440,4 +440,8 @@ const getAllTours = (request, response) => {
 ```  
 Run the server and get request in postman; OUTPUT:
 ![middleware get property](images/expressMiddleware1.png)  
+
+## Using 3rd-Party Middleware
+- Popular login middleware "Morgan" helps us see requests in the console.
+- 
 
