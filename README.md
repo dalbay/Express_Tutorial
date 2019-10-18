@@ -462,8 +462,8 @@ app.get('/user/:id', function (req, res, next) {
   res.send('special')
 })
 ```  
-2. *Router-level Middleware:*
-Router-level middleware works in the same way as application-level middleware, except it is bound to an instance of ```express.Router()```.  
+2. *Router-level Middleware:*  
+  Router-level middleware works in the same way as application-level middleware, except it is bound to an instance of ```express.Router()```.  
 Load router-level middleware by using the ```router.use()``` and ```router.METHOD()``` functions.  
 
 The following example code replicates the middleware system that is shown above for application-level middleware, by using router-level middleware:
@@ -506,22 +506,22 @@ router.get('/user/:id', function (req, res, next) {
 // mount the router on the app
 app.use('/', router)
 ```  
-3. Error-handling Middleware  
-Define error-handling middleware functions in the same way as other middleware functions, except with four arguments instead of three, specifically with the signature (err, req, res, next)):
+3. *Error-handling Middleware:*  
+  Define error-handling middleware functions in the same way as other middleware functions, except with four arguments instead of three, specifically with the signature (err, req, res, next)):
 ```JavaScript
 app.use(function (err, req, res, next) {
   console.error(err.stack)
   res.status(500).send('Something broke!')
 })
 ```
-4. Built-in middleware
-Express has the following built-in middleware functions:
+4. *Built-in middleware:*  
+  Express has the following built-in middleware functions:
 
-* express.static serves static assets such as HTML files, images, and so on.
-* express.json parses incoming requests with JSON payloads. NOTE: Available with Express 4.16.0+
-* express.urlencoded parses incoming requests with URL-encoded payloads. NOTE: Available with Express 4.16.0+
-5. Third-party middleware
-Use third-party middleware to add functionality to Express apps. (more details in later section)
+  * express.static serves static assets such as HTML files, images, and so on.
+  * express.json parses incoming requests with JSON payloads. NOTE: Available with Express 4.16.0+
+  * express.urlencoded parses incoming requests with URL-encoded payloads. NOTE: Available with Express 4.16.0+
+5. *Third-party middleware:*  
+  Use third-party middleware to add functionality to Express apps. (more details in later section)
 
 ## Creating Our Own Middleware
 - To create our own middleware use ```app.use``` and pass in a callback function that we want to add to our middleware stack.
