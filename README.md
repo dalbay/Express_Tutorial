@@ -705,3 +705,19 @@ app.use('api/v1/users', userRouter);
 <br/>
 
 #### Refactor the Application - A Better File Structure
+
+- Create a new folder - "routes" with two files - "tourRouts.js" and "userRoutes.js"
+
+
+
+
+
+
+
+
+
+
+
+
+
+

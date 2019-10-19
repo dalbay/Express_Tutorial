@@ -160,17 +160,6 @@ const deleteUser = (req, res) => {
 // create new router for the tours
 const tourRouter = express.Router();
 
-// use that router:
-tourRouter
-  .route('/')
-  .get(getAllTours)
-  .post(createTour);
-tourRouter
-  .route('/:id')
-  .get(getTour)
-  .patch(updateTour)
-  .delete(deleteTour);
-
 // use the router as a middleware (Mounting a Router):
 app.use('/api/v1/tours', tourRouter);
 
