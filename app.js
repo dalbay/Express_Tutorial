@@ -157,9 +157,6 @@ const deleteUser = (req, res) => {
 };
 // 3) ROUTES
 
-// create new router for the tours
-const tourRouter = express.Router();
-
 // use the router as a middleware (Mounting a Router):
 app.use('/api/v1/tours', tourRouter);
 
