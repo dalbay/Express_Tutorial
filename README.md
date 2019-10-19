@@ -715,9 +715,12 @@ app.use('api/v1/users', userRouter);
 // import the express module
 const express = require('express');
 
+// use File System
+const fs = require('fs');
+
 // Read Data (tours) - an array of JSON objects inside the dev-data folder.
 const tours = JSON.parse(
-  fs.readFileSync(`${__dirname}/dev-data/data/tours-simple.json`)
+  fs.readFileSync(`${__dirname}/../dev-data/data/tours-simple.json`)
 );
 
 // create new router for the tours
@@ -759,6 +762,7 @@ router
 // when we have only one thing to export we use module.export
 module.exports = router;
 ```
+- import the routers in the app.js file
 
 
 

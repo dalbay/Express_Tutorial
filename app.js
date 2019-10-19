@@ -1,9 +1,11 @@
-// use File System
-const fs = require('fs');
 // use Express
 const express = require('express');
 // use Morgan
 const morgan = require('morgan');
+
+// import Routes:
+const tourRouter = require('./routes/tourRoutes');
+const userRouter = require('./routes/userRoutes');
 
 // create a standard variable called app
 const app = express();
