@@ -8,11 +8,6 @@ const morgan = require('morgan');
 // create a standard variable called app
 const app = express();
 
-// Read Data (tours) - an array of JSON objects inside the dev-data folder.
-const tours = JSON.parse(
-  fs.readFileSync(`${__dirname}/dev-data/data/tours-simple.json`)
-);
-
 //--------------------------------------------------------------
 // 1) MIDDLEWARES:
 
@@ -159,20 +154,6 @@ const deleteUser = (req, res) => {
 
 // use the router as a middleware (Mounting a Router):
 app.use('/api/v1/tours', tourRouter);
-
-// create a new router for the users
-const userRouter = express.Router();
-
-// use that router:
-userRouter
-  .route('/')
-  .get(getAllUsers)
-  .post(createUser);
-userRouter
-  .route('/:id')
-  .get(getUser)
-  .patch(updateUser)
-  .delete(deleteUser);
 
 // use the router as a middleware:
 app.use('api/v1/users', userRouter);

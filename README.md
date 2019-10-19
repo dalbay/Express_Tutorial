@@ -706,8 +706,59 @@ app.use('api/v1/users', userRouter);
 
 #### Refactor the Application - A Better File Structure
 
-- Create a new folder - "routes" with two files - "tourRouts.js" and "userRoutes.js"
+- Create a new folder - "routes" with two files - "tourRoutes.js" and "userRoutes.js"
+- copy and paste the routes into these files 
+- export the routes from the files  
+ 
+*tourRoutes.js* file:  
+```JavaScript
+// import the express module
+const express = require('express');
 
+// Read Data (tours) - an array of JSON objects inside the dev-data folder.
+const tours = JSON.parse(
+  fs.readFileSync(`${__dirname}/dev-data/data/tours-simple.json`)
+);
+
+// create new router for the tours
+const router = express.Router();
+
+// use that router:
+router
+  .router('/')
+  .get(getAllTours)
+  .post(createTour);
+router
+  .router('/:id')
+  .get(getTour)
+  .patch(updateTour)
+  .delete(deleteTour);
+
+// when we have only one thing to export we use module.export
+module.exports = router;
+```  
+*userRoutes.js* file:
+```JavaScript
+// import the express module
+const express = require('express');
+
+// create a new router for the users
+const router = express.Router();
+
+// use that router:
+router
+  .route('/')
+  .get(getAllUsers)
+  .post(createUser);
+router
+  .route('/:id')
+  .get(getUser)
+  .patch(updateUser)
+  .delete(deleteUser);
+
+// when we have only one thing to export we use module.export
+module.exports = router;
+```
 
 
 

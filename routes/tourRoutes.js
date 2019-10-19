@@ -1,19 +1,24 @@
 // import the express module
 const express = require('express');
 
+// Read Data (tours) - an array of JSON objects inside the dev-data folder.
+const tours = JSON.parse(
+  fs.readFileSync(`${__dirname}/dev-data/data/tours-simple.json`)
+);
+
 // create new router for the tours
-const route = express.Router();
+const router = express.Router();
 
 // use that router:
-route
-  .route('/')
+router
+  .router('/')
   .get(getAllTours)
   .post(createTour);
-route
-  .route('/:id')
+router
+  .router('/:id')
   .get(getTour)
   .patch(updateTour)
   .delete(deleteTour);
 
 // when we have only one thing to export we use module.export
-module.exports = route;
+module.exports = router;
