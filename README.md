@@ -840,7 +840,24 @@ Recap:
   - copy and past the server code from app.js to server.js
   - export app(express) from app.js to server.js - ```module.exports = app;```
   - import app in server.js - ```const app = require('./app'); // since its our own module we need to use ./ for current folder.``` 
-  - change the npm script to ```"start": "nodemon server.js"```
+  - change the npm script to ```"start": "nodemon server.js"```  
+
+## Param Middleware  
+- middleware that only runs for certain parameters in the URL.
+- use Router objects param() method and specify which parameter from the URL will be used and the actual middleware functions with req, res, next, and the val arguments.
+- the val argument is the parameter that is being passed 
+```JavaScript
+	// create new router for the tours
+	const router = express.Router();
+
+	router.param('id', (req, res, next, val) => {
+	  console.log(`Tour id is: ${val}`);
+	  next();
+	});
+``` 
+Run the server and send a request - 127.0.0.1:3000/api/v1/tours/3  
+Here is the OUTPUT for the request in the console ```Tour id is: 3```.  
+
 
 
 
