@@ -706,6 +706,8 @@ app.use('api/v1/users', userRouter);
 
 #### Refactor the Application - A Better File Structure
 
+- To have a separation of concern create different resources for each router; and then put them together in one main app file.  
+  The main app.js file is usually used for *middleware declaration*. The middleware declared on the top are used for all routes.
 - Create a new folder - "routes" with two files - "tourRoutes.js" and "userRoutes.js"
 - copy and paste the routes into these files 
 - next, export the routes from the files  
@@ -768,14 +770,15 @@ module.exports = router;
 const tourRouter = require('./routes/tourRoutes');
 const userRouter = require('./routes/userRoutes');
 ```  
-- Mount these routers onto the two different routes  
+- Mount these routers onto the two different routes with *app.use*  
 ```JavaScript
 // Mounting tourRouter on a Router
 app.use('/api/v1/tours', tourRouter);
 
 // Mounting userRouter on a Router
 app.use('api/v1/users', userRouter);
-```
+```  
+- Remove the Route Handlers to a separate file: 
 
 
 
