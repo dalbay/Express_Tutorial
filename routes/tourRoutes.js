@@ -4,11 +4,6 @@ const express = require('express');
 // import tourController (route handlers)
 const tourController = require('./../controllers/tourController');
 
-// Read Data (tours) - an array of JSON objects inside the dev-data folder.
-const tours = JSON.parse(
-  fs.readFileSync(`${__dirname}/../dev-data/data/tours-simple.json`)
-);
-
 // create new router for the tours
 const router = express.Router();
 

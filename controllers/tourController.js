@@ -1,6 +1,11 @@
 // use File System
 const fs = require('fs');
 
+// Read Data (tours) - an array of JSON objects inside the dev-data folder.
+const tours = JSON.parse(
+  fs.readFileSync(`${__dirname}/../dev-data/data/tours-simple.json`)
+);
+
 // ROUTE HANDLER for Tours
 
 // get ALL Tours
