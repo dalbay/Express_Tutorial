@@ -778,7 +778,8 @@ app.use('/api/v1/tours', tourRouter);
 // Mounting userRouter on a Router
 app.use('api/v1/users', userRouter);
 ```  
-- Remove the Route Handlers to a separate file: 
+- Remove the Route Handlers to a separate file - *controllers*; and add a tourController.js and a userController.js file 
+
 
 
 
