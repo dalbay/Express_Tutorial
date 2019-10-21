@@ -781,6 +781,7 @@ app.use('api/v1/users', userRouter);
 - Remove the Route Handlers (CRUD functions) to a separate file -> *controllers*; and add them to the tourController.js and the userController.js file.  
   Export the functions from these files. Since we have more than one function to export, don't use ```module.exports```, but instead put all of the functions on the exports object.  
 ```JavaScript
+// Export functions:
 // get ALL Tours
 exports.getAllTours = (request, response) => {
 	...
@@ -797,9 +798,21 @@ exports.updateTour = (request, response) => {
 exports.deleteTour = (request, response) => {
 	...
 ```  
-- import the handler in tourRoutes and use it in the router
+- import the handler in tourRoutes.js and use it in the router
 ```JavaScript
+// Import tourController (route handlers)
+const tourController = require('./../controllers/tourController');
 
+// use in router:
+router
+  .router('/')
+  .get(tourController.getAllTours)
+  .post(tourController.createTour);
+router
+  .router('/:id')
+  .get(tourController.getTour)
+  .patch(tourController.updateTour)
+  .delete(tourController.deleteTour);
 ```
 
 
