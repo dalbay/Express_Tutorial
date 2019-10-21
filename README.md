@@ -844,7 +844,8 @@ Recap:
 
 ## Param Middleware  
 - middleware that only runs for certain parameters in the URL.
-- use Router objects param() method and specify which parameter from the URL will be used and the actual middleware functions with req, res, next, and the val arguments.
+- when you specify the middleware in a router (here for example in tourRouter.js) then it will only work for the tours. This shows that each router acts as a mini application withing an application.
+- To utilize the param middleware, apply the Router objects param() method. The first argument will be the specifyc parameter from the URL that is targeted and the second argument is the actual middleware functions with req, res, next, and the val arguments.
 - the val argument is the parameter that is being passed 
 ```JavaScript
 	// create new router for the tours
