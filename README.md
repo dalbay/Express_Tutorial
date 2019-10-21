@@ -778,7 +778,8 @@ app.use('/api/v1/tours', tourRouter);
 // Mounting userRouter on a Router
 app.use('api/v1/users', userRouter);
 ```  
-- Remove the Route Handlers to a separate file - *controllers*; and add a tourController.js and a userController.js file 
+- Remove the Route Handlers (CRUD functions) to a separate file -> *controllers*; and add them to the tourController.js and the userController.js file.  
+  Export the functions from these files. Since we have more than one function to export, don't use ```module.exports```, but instead put all of the functions on the exports object.
 
 
 

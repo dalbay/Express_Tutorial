@@ -1,4 +1,7 @@
-// 2) ROUTE HANDLERS:
+// use File System
+const fs = require('fs');
+
+// ROUTE HANDLER for Tours
 
 // get ALL Tours
 const getAllTours = (request, response) => {
