@@ -797,8 +797,10 @@ exports.updateTour = (request, response) => {
 exports.deleteTour = (request, response) => {
 	...
 ```  
-- import the handler in tourRoutes
+- import the handler in tourRoutes and use it in the router
+```JavaScript
 
+```
 
 
 
