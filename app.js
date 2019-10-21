@@ -10,9 +10,7 @@ const userRouter = require('./routes/userRoutes');
 // create a standard variable called app
 const app = express();
 
-//--------------------------------------------------------------
-// 1) MIDDLEWARES:
-
+// MIDDLEWARES:
 // Create a Middleware
 app.use(express.json());
 
@@ -26,23 +24,10 @@ app.use((request, response, next) => {
   next();
 });
 
-// Create a Middleware (manipulate the request function)
-app.use((request, response, next) => {
-  // Define a Property on the Request Object that we want to send back
-  request.requestTime = new Date().toISOString();
-  next();
-});
-
-// 3) ROUTES
-
-// use the router as a middleware (Mounting a Router):
+// ROUTES
+// Mounting route on tour router
 app.use('/api/v1/tours', tourRouter);
+// Mounting route on tour router
+app.use('/api/v1/users', userRouter);
 
-// use the router as a middleware:
-app.use('api/v1/users', userRouter);
-
-// 4) START SERVER
-const port = 3000;
-app.listen(port, () => {
-  console.log(`App running on port ${port}...`);
-});
+module.exports = app;

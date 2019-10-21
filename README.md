@@ -775,6 +775,7 @@ app.use('api/v1/users', userRouter);
   Export the functions from these files. Since we have more than one function to export, put all of the functions on the *exports object*,  instead of using module.exports.
 ```JavaScript
 // Exporting Functions:
+
 // get ALL Tours
 exports.getAllTours = (request, response) => {
 	...
@@ -793,8 +794,10 @@ exports.deleteTour = (request, response) => {
 	
 // the same for the user functions inside the userController.js...
 ```  
-- import the handlers in tourRoutes.js and userRoutes.js; use CRUD methods  in the router
+- import the handlers in tourRoutes.js and userRoutes.js; and use CRUD methods  in the router
 ```JavaScript
+// tourRouter.js:
+
 // Import tourController (route handlers) in tourRouter.js
 const tourController = require('./../controllers/tourController');
 
@@ -809,9 +812,35 @@ router
   .patch(tourController.updateTour)
   .delete(tourController.deleteTour);
 
-// Import userController (route handler) in userRouter.js
 
-```
+// userRouter.js:
+
+// Import userController (route handler) in userRouter.js
+const userController = require('./../controllers/userController');
+
+// use in router:
+router
+  .route('/')
+  .get(userController.getAllUsers)
+  .post(userController.createUser);
+router
+  .route('/:id')
+  .get(userController.getUser)
+  .patch(userController.updateUser)
+  .delete(userController.deleteUser);
+```  
+Recap:  
+ - We receive the request in the app.js file.
+ - depending on that route it will be send to either one of the routers(tourRouter, userRouter).
+ - depending on that route and the method, it will execute one of the controllers.
+ - and from that controller is where the response gets send and finishes the request-response cycle.
+
+- Lastly, create a server.js file, to have everything that is related to express on one file and everything that is related to the server (like db configurations, error handling, environment variables)on another.  
+  - server.js is going to be the starting file.  
+  - copy and past the server code from app.js to server.js
+  - export app(express) from app.js to server.js - ```module.exports = app;```
+  - import app in server.js - ```const app = require('./app'); // since its our own module we need to use ./ for current folder.``` 
+  - change the npm script to ```"start": "nodemon server.js"```
 
 
 
