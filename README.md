@@ -708,8 +708,8 @@ app.use('api/v1/users', userRouter);
 
 - Create a new folder - "routes" with two files - "tourRoutes.js" and "userRoutes.js"
 - copy and paste the routes into these files 
-- export the routes from the files  
- 
+- next, export the routes from the files  
+
 *tourRoutes.js* file:  
 ```JavaScript
 // import the express module
@@ -762,7 +762,20 @@ router
 // when we have only one thing to export we use module.export
 module.exports = router;
 ```
-- import the routers in the app.js file
+- import the routers into the app.js file 
+```JavaScript
+// import Routes:
+const tourRouter = require('./routes/tourRoutes');
+const userRouter = require('./routes/userRoutes');
+```  
+- Mount these routers onto the two different routes  
+```JavaScript
+// Mounting tourRouter on a Router
+app.use('/api/v1/tours', tourRouter);
+
+// Mounting userRouter on a Router
+app.use('api/v1/users', userRouter);
+```
 
 
 
