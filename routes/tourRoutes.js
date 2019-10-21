@@ -1,19 +1,19 @@
 // import the express module
 const express = require('express');
 
-// import tourController (route handlers)
-const tourController = require('./../controllers/tourController');
-
 // create new router for the tours
 const router = express.Router();
 
-// use that router:
+// import tourController (route handlers)
+const tourController = require('./../controllers/tourController');
+
+// use router:
 router
-  .router('/')
+  .route('/')
   .get(tourController.getAllTours)
   .post(tourController.createTour);
 router
-  .router('/:id')
+  .route('/:id')
   .get(tourController.getTour)
   .patch(tourController.updateTour)
   .delete(tourController.deleteTour);

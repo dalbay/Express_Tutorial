@@ -717,24 +717,16 @@ app.use('api/v1/users', userRouter);
 // import the express module
 const express = require('express');
 
-// use File System
-const fs = require('fs');
-
-// Read Data (tours) - an array of JSON objects inside the dev-data folder.
-const tours = JSON.parse(
-  fs.readFileSync(`${__dirname}/../dev-data/data/tours-simple.json`)
-);
-
 // create new router for the tours
 const router = express.Router();
 
 // use that router:
 router
-  .router('/')
+  .route('/')
   .get(getAllTours)
   .post(createTour);
 router
-  .router('/:id')
+  .route('/:id')
   .get(getTour)
   .patch(updateTour)
   .delete(deleteTour);
@@ -761,10 +753,10 @@ router
   .patch(updateUser)
   .delete(deleteUser);
 
-// when we have only one thing to export we use module.export
+// export the router - when we have only one thing to export we use module.export
 module.exports = router;
 ```
-- import the routers into the app.js file 
+- import the routers from tourRoutes.js and userRoutes.js into the app.js file 
 ```JavaScript
 // import Routes:
 const tourRouter = require('./routes/tourRoutes');
@@ -778,10 +770,11 @@ app.use('/api/v1/tours', tourRouter);
 // Mounting userRouter on a Router
 app.use('api/v1/users', userRouter);
 ```  
-- Remove the Route Handlers (CRUD functions) to a separate file -> *controllers*; and add them to the tourController.js and the userController.js file.  
-  Export the functions from these files. Since we have more than one function to export, don't use ```module.exports```, but instead put all of the functions on the exports object.  
+
+- Next, remove the *Route Handlers* (CRUD functions) to a separate file -> *controllers*; and add them to the tourController.js and the userController.js files.  
+  Export the functions from these files. Since we have more than one function to export, put all of the functions on the *exports object*,  instead of using module.exports.
 ```JavaScript
-// Export functions:
+// Exporting Functions:
 // get ALL Tours
 exports.getAllTours = (request, response) => {
 	...
@@ -797,22 +790,27 @@ exports.updateTour = (request, response) => {
 // delete a Tour
 exports.deleteTour = (request, response) => {
 	...
+	
+// the same for the user functions inside the userController.js...
 ```  
-- import the handler in tourRoutes.js and use it in the router
+- import the handlers in tourRoutes.js and userRoutes.js; use CRUD methods  in the router
 ```JavaScript
-// Import tourController (route handlers)
+// Import tourController (route handlers) in tourRouter.js
 const tourController = require('./../controllers/tourController');
 
 // use in router:
 router
-  .router('/')
+  .route('/')
   .get(tourController.getAllTours)
   .post(tourController.createTour);
 router
-  .router('/:id')
+  .route('/:id')
   .get(tourController.getTour)
   .patch(tourController.updateTour)
   .delete(tourController.deleteTour);
+
+// Import userController (route handler) in userRouter.js
+
 ```
 
 

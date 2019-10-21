@@ -33,41 +33,6 @@ app.use((request, response, next) => {
   next();
 });
 
-// get all users:
-const getAllUsers = (req, res) => {
-  res.status(500).json({
-    status: 'error',
-    message: 'This route is not yet defined!'
-  });
-};
-// get one user:
-const getUser = (req, res) => {
-  res.status(500).json({
-    status: 'error',
-    message: 'This route is not yet defined!'
-  });
-};
-// get all users:
-const createUser = (req, res) => {
-  res.status(500).json({
-    status: 'error',
-    message: 'This route is not yet defined!'
-  });
-};
-// get all users:
-const updateUser = (req, res) => {
-  res.status(500).json({
-    status: 'error',
-    message: 'This route is not yet defined!'
-  });
-};
-// get all users:
-const deleteUser = (req, res) => {
-  res.status(500).json({
-    status: 'error',
-    message: 'This route is not yet defined!'
-  });
-};
 // 3) ROUTES
 
 // use the router as a middleware (Mounting a Router):
