@@ -4,7 +4,7 @@ const fs = require('fs');
 // ROUTE HANDLER for Tours
 
 // get ALL Tours
-const getAllTours = (request, response) => {
+exports.getAllTours = (request, response) => {
   console.log(request.requestTime); // use the property here
   response.status(200).json({
     status: 'success',
@@ -17,7 +17,7 @@ const getAllTours = (request, response) => {
 };
 
 // get a Tour
-const getTour = (request, response) => {
+exports.getTour = (request, response) => {
   const id = request.params.id * 1;
 
   if (id > tours.length) {
@@ -36,7 +36,7 @@ const getTour = (request, response) => {
 };
 
 // create a Tour
-const createTour = (request, response) => {
+exports.createTour = (request, response) => {
   const newId = tours[tours.length - 1].id + 1;
   const newTour = Object.assign({ id: newId, price: 230 }, request.body);
 
@@ -56,7 +56,7 @@ const createTour = (request, response) => {
 };
 
 // update a Tour
-const updateTour = (request, response) => {
+exports.updateTour = (request, response) => {
   if (request.params.id * 1 > tours.length) {
     response.status(404).json({
       status: 'fail',
@@ -72,7 +72,7 @@ const updateTour = (request, response) => {
 };
 
 // delete a Tour
-const deleteTour = (request, response) => {
+exports.deleteTour = (request, response) => {
   if (request.params.id * 1 > tours.length) {
     response.status(404).json({
       status: 'fail',
