@@ -583,10 +583,12 @@ Popular login middleware **Morgan** - helps us see requests data in the console.
 ***To make use of a Middleware:***   
 1. *Add to package.json* - ```npm i morgan``` - (Morgan is not a dev-dependency but a regular dependency.) 
 2. *Require in code* - ```const morgan = require('morgan');```
-3. *Use middleware* - ```app.use(morgan('dev'));``` the passeed in argument describes how we want the log in to look like.  
+3. *Use middleware* - ```app.use(morgan('dev'));``` the dev argument describes how we want the log to look like;(options displayed in IntelliSense).  
+   When you look at the documentation, you will see that the morgan() funtions will return another function with the same typical signature as our own middleware functions ```return function logger(req, res, next){```; and it also calls the ```next()``` function at the end, just like our middleware functions.
 
 Run the application, and make a request in postman. The data about the request will be displayed in the console:  
 ``` GET /api/v1/tours/ 200 4.592 ms - 8703 ```  
+<br/>
 
 ***List of recommended Middleware in express:***  
  
