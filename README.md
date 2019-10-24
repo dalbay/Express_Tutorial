@@ -577,15 +577,18 @@ Run the server and get request in postman; OUTPUT:
 ![middleware get property](images/expressMiddleware1.png)  
 
 ## Using 3rd-Party Middleware
-Popular login middleware **Morgan** - helps us see requests data in the console.  
+Popular login middleware **Morgan** - helps us see requests data in the console.
+<br/>
+  
 ***To make use of a Middleware:***   
 1. *Add to package.json* - ```npm i morgan``` - (Morgan is not a dev-dependency but a regular dependency.) 
-2. *Require in code - *```const morgan = require('morgan');```
+2. *Require in code* - ```const morgan = require('morgan');```
 3. *Use middleware* - ```app.use(morgan('dev'));``` the passeed in argument describes how we want the log in to look like.  
 
 Run the application, and make a request in postman. The data about the request will be displayed in the console:  
 ``` GET /api/v1/tours/ 200 4.592 ms - 8703 ```  
-- Here  is a list of middleware that is recommended in express;  
+
+***List of recommended Middleware in express:***  
  
 The Express middleware modules listed here are maintained by the Expressjs team:  
 
