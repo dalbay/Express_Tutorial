@@ -4,13 +4,10 @@ const express = require('express');
 // create new router for the tours
 const router = express.Router();
 
-router.param('id', (req, res, next, val) => {
-  console.log(`Tour id is: ${val}`);
-  next();
-});
-
 // import tourController (route handlers)
 const tourController = require('./../controllers/tourController');
+
+router.param('id', tourController.checkId);
 
 // use router:
 router
