@@ -577,10 +577,12 @@ Run the server and get request in postman; OUTPUT:
 ![middleware get property](images/expressMiddleware1.png)  
 
 ## Using 3rd-Party Middleware
-- Popular login middleware "Morgan" helps us see requests data in the console.
-- *Add to package.json:*```npm i morgan``` - is not a dev-dependency but a regular dependency. 
-- *Require in code:*```const morgan = require('morgan');```
-- *Use middleware:* ```app.use(morgan('dev'));``` the passeed in argument describes how we want the log in to look like.  
+Popular login middleware **Morgan** - helps us see requests data in the console.  
+***To make use of a Middleware:***   
+1. *Add to package.json* - ```npm i morgan``` - (Morgan is not a dev-dependency but a regular dependency.) 
+2. *Require in code - *```const morgan = require('morgan');```
+3. *Use middleware* - ```app.use(morgan('dev'));``` the passeed in argument describes how we want the log in to look like.  
+
 Run the application, and make a request in postman. The data about the request will be displayed in the console:  
 ``` GET /api/v1/tours/ 200 4.592 ms - 8703 ```  
 - Here  is a list of middleware that is recommended in express;  
@@ -858,6 +860,14 @@ Recap:
 ``` 
 Run the server and send a request - 127.0.0.1:3000/api/v1/tours/3  
 Here is the OUTPUT for the request in the console ```Tour id is: 3```.  
+<br/>
+
+For example; inside the tourController.js, we can make use of the param middleware and perform a validation to check if id exists before the execution hits the handler functions.  
+Cut the code out of the handler functions and create another middleware above the handler functions and export it.
+```JavaScript
+
+```
+
 
 
 
