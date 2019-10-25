@@ -28,8 +28,10 @@ app.use((request, response, next) => {
 });
 
 // ROUTES
+
 // Mounting route on tour router
 app.use('/api/v1/tours', tourRouter);
+
 // Mounting route on tour router
 app.use('/api/v1/users', userRouter);
 
