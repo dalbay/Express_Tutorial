@@ -871,8 +871,10 @@ Recap:
 Run the server and send a request - 127.0.0.1:3000/api/v1/tours/3  
 Here is the OUTPUT for the request in the console ```Tour id is: 3```.  
 <br/>
+To recap, if we have an incomming request for /tours/id, that request will go through all of the middlewares (```app.use((req, res, next) => {});```) inside the app.js file and hit the last routes middleware with the right path - (```app.use('/api/v1/tours', tourRouter);```). This will send the application flow to the tourRouter middleware where the ```router.param('id', (req, res, next, val) => {)``` middleware functions will run its code.  
 
-For example; inside the tourController.js, we can make use of the param middleware and perform a validation to check if id exists before the execution hits the handler functions.  
+***A practical usecase to run such a middleware:***  
+We can make use of the param middleware and perform a validation to check if id exists before the execution hits the handler functions.  
 Cut the code out of the handler functions and create another middleware above the handler functions and export it.
 ```JavaScript
 
