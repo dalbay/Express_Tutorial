@@ -871,7 +871,8 @@ Recap:
 Run the server and send a request - 127.0.0.1:3000/api/v1/tours/3  
 Here is the OUTPUT for the request in the console ```Tour id is: 3```.  
 <br/>
-To recap, if we have an incomming request for /tours/id, that request will go through all of the middlewares (```app.use((req, res, next) => {});```) inside the app.js file and hit the last routes middleware with the right path - (```app.use('/api/v1/tours', tourRouter);```). This will send the application flow to the tourRouter middleware where the ```router.param('id', (req, res, next, val) => {)``` middleware functions will run its code.  
+To recap, if we have an incomming request for /tours/id, that request will go through all of the middlewares (```app.use((req, res, next) => {});```) inside the app.js file and eventually hit the last routes middleware with the right path - (```app.use('/api/v1/tours', tourRouter);```).  
+This will send the application flow to the tourRouter middleware where the ```router.param('id', (req, res, next, val) => {)``` middleware functions will run its code.  
 
 ***A practical usecase to run such a middleware:***  
 We can make use of the param middleware and perform a validation to check if id exists before the execution hits the handler functions.  
@@ -889,13 +890,102 @@ exports.checkId = (req, res, next, val) => {
   next();
 };
 ```  
-Inside the tourRoutes.js file and update the touter with this new controller function:  
+Inside the tourRoutes.js file, update the router param function with this new controller function:  
 ```JavaScript
 router.param('id', tourController.checkId);
 ```  
 Run the server and make a get request with an invalid id - 127.0.0.1:3000/api/v1/tours/ 255  
 The response will be:  
 ![middleware params img](images/expressParams1.png)  
+***The flow of the execution is as follows:***  
+- code hits app.js file
+- the router middleware function at the end of the file will run; note that the tour path is mounted to this middleware function:
+```JavaScript
+// import Routes:
+const tourRouter = require('./routes/tourRoutes');
+
+...
+
+// ROUTES
+// Mounting route on tour router
+app.use('/api/v1/tours', tourRouter);
+// Mounting route on tour router
+app.use('/api/v1/users', userRouter);
+
+module.exports = app;
+```
+- execution hits tourRoutes.js file
+- here the router.param middleware functions will run before the router code is hits; note that this will send execution to the tourController and run the checkid middleware function.
+```JavaScript
+// import the express module
+const express = require('express');
+
+// create new router for the tours
+const router = express.Router();
+
+// import tourController (route handlers)
+const tourController = require('./../controllers/tourController');
+
+router.param('id', tourController.checkId);
+
+// use router:
+router
+  .route('/')
+  .get(tourController.getAllTours)
+  .post(tourController.createTour);
+router
+  .route('/:id')
+  .get(tourController.getTour)
+  .patch(tourController.updateTour)
+  .delete(tourController.deleteTour);
+
+// when we have only one thing to export we use module.export
+module.exports = router;
+```  
+- execution hits tourController.js file
+- the checkid middleware function will be executed; if invalid request is made a 404 will be returned and the request-response cycle will come to and end, otherwise the next middleware functions will be executed and since this functions is exported, code flow will come back to tourRoutes.js  
+```JavaScript
+// middleware function to check id
+exports.checkId = (req, res, next, val) => {
+  console.log(`Tour id is: ${val}`);
+  if (req.params.id * 1 > tours.length) {
+    return res.status(404).json({
+      status: 'fail',
+      message: 'Invalid ID'
+    });
+  }
+  next();
+};
+```  
+- execution hits tourRoutes.js file
+- the matching router will be executed; in this case the ```.get(tourController.getTour)``` which will send execution to the tourController getTour function.
+- execution hits tourController.js file and executes the getTour middleware function; this is where a response is send back and the request-response cycle stops.
+```JavaScript
+// get a Tour
+exports.getTour = (request, response) => {
+  const id = request.params.id * 1;
+
+  const tour = tours.find(element => element.id === id);
+
+  response.status(200).json({
+    status: 'success',
+    data: {
+      tour
+    }
+  });
+};
+```  
+- execution hits the app.js file and back to the server.js.
+```JavaScript
+const app = require('./app'); // since its our own module we need to use ./ for current folder.
+
+// START SERVER
+const port = 3000;
+app.listen(port, () => {
+  console.log(`App running on port ${port}...`);
+});
+```
+
 
 
 
