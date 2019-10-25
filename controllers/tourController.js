@@ -9,8 +9,8 @@ const tours = JSON.parse(
 // middleware function to check id
 exports.checkId = (req, res, next, val) => {
   console.log(`Tour id is: ${val}`);
-  if (request.params.id * 1 > tours.length) {
-    return response.status(404).json({
+  if (req.params.id * 1 > tours.length) {
+    return res.status(404).json({
       status: 'fail',
       message: 'Invalid ID'
     });
@@ -38,6 +38,7 @@ exports.getTour = (request, response) => {
   const id = request.params.id * 1;
 
   const tour = tours.find(element => element.id === id);
+
   response.status(200).json({
     status: 'success',
     data: {

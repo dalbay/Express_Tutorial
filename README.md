@@ -875,10 +875,28 @@ To recap, if we have an incomming request for /tours/id, that request will go th
 
 ***A practical usecase to run such a middleware:***  
 We can make use of the param middleware and perform a validation to check if id exists before the execution hits the handler functions.  
-Cut the code out of the handler functions and create another middleware above the handler functions and export it.
+Cut the code out of the handler functions inside the tourController that checks the id -(getTour, updateTour, deleteTour). Paste this code to another middleware above the handler functions and export it. This will run before the request hits the handler functions.
 ```JavaScript
+// middleware function to check id
+exports.checkId = (req, res, next, val) => {
+  console.log(`Tour id is: ${val}`);
+  if (req.params.id * 1 > tours.length) {
+    return res.status(404).json({
+      status: 'fail',
+      message: 'Invalid ID'
+    });
+  }
+  next();
+};
+```  
+Inside the tourRoutes.js file and update the touter with this new controller function:  
+```JavaScript
+router.param('id', tourController.checkId);
+```  
+Run the server and make a get request with an invalid id - 127.0.0.1:3000/api/v1/tours/ 255  
+The response will be:  
+![middleware params img](images/expressParams1.png)  
 
-```
 
 
 
