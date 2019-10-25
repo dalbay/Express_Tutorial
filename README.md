@@ -1034,7 +1034,33 @@ app.use(express.static(`${__dirname}/public`));
 - the most important environments are the production and development environments.
 - the type of settings are based on environment variables.
 - by default, express sets the environment to development.
-- let's take a look at the variable in the server - (everything that is not related to the app.js file(express configurations ) will be handled on the server.js file.
+- let's take a look at the variable in the server - (everything that is not related to the app.js file(express configurations ) will be handled on the server.js file.  
+Display the current environment - ```app.get('env')```:  
+```JavaScript
+const app = require('./app'); // since its our own module we need to use ./ for current folder.
+
+// display the environment
+console.log(app.get('env'));
+
+// START SERVER
+const port = 8000;
+app.listen(port, () => {
+  console.log(`App running on port ${port}...`);
+});
+
+/*
+OUTPUT:
+[nodemon] restarting due to changes...
+[nodemon] starting `node server.js`
+development
+App running on port 8000...
+*/
+```  
+- node.js and express both set some global/environment variables.  
+- To list the variables that node.js sets - ```Console.log(process.env);```.
+- these variables come from the process core module.
+- in express many processes depend on the nodeN variable - a convention which defines which mode we are in - production/development.
+  
 
 
 
