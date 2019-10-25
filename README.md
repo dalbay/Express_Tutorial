@@ -1059,7 +1059,11 @@ App running on port 8000...
 - node.js and express both set some global/environment variables.  
 - To list the variables that node.js sets - ```Console.log(process.env);```.
 - these variables come from the process core module.
-- in express many processes depend on the nodeN variable - a convention which defines which mode we are in - production/development.
+- in express many processes depend on the **NODE_ENV** variable - a convention which defines which mode we are in - production/development.
+- express does not define this variable and we need to define that manually;
+- ***Define an environmental variable:*** the easies way is to use the terminal  
+  prepend the NODE_ENV variable to the command that starts the process(we used the npm start which stands for nodemon server.js.)  **```NODE_ENV=development nodemon server.js```**  
+- 
   
 
 
