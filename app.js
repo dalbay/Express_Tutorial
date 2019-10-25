@@ -17,6 +17,9 @@ app.use(express.json());
 // Create a Middleware:
 app.use(morgan('dev')); // passed in argument - how we want the loggin to look like. This 3rd middleware also calls a function with the next() method to move on.
 
+// Create a Middleware to access static files
+app.use(express.static(`${__dirname}/public`));
+
 // Create a Middleware
 app.use((request, response, next) => {
   console.log('Hello from the middleware');

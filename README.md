@@ -1014,8 +1014,24 @@ router
   .get(tourController.getAllTours)
   .post(tourController.checkBody, tourController.createTour);
 ```  
-Run the server and make a post request with the name and price properties in the body. The execution will hit the ```.route('/')```router and direct to the .post method which will execute the tourController.checkBody middleware function. The response will be 201 Created:  
-![middleware resonse 201](images/expressParams2.png)
+Run the server and make a post request with the name and price properties in the body. The execution will hit the ```.route('/')```router and direct to the .post method which will execute the tourController.checkBody middleware function. Since the properties are present, the middleware functions will call the ```next()``` middleware functions which is tourConroller.createTour. This will then finish the request-response cycle. The response is a 201 Created:  
+![middleware resonse 201](images/expressParams2.png)  
+<br/>
+
+## Serving Static Files
+- Files that reside in our system that we can't access using our routes. 
+- We need to use a build in middleware ```app.use(express.static(''))``` and pass in the directory from which we want to serve static files. Add the middleware to the app.js file:
+```JavaScript
+// Create a Middleware to access static files
+app.use(express.static(`${__dirname}/public`));
+```  
+- we can now access this file from the browser, but without adding the "/public/" to the URL. That's because if the URL is not found it will automatically look up the public folder and sets this folder to the root - http://127.0.0.1:8000/overview.html. Now we can access every static file that's inside the public folder from the browser.
+<br/>
+
+## Environmental Variables
+
+
+
 
 
 
