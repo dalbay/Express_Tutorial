@@ -584,9 +584,10 @@ Popular login middleware **Morgan** - helps us see requests data in the console.
 1. *Add to package.json* - ```npm i morgan``` - (Morgan is not a dev-dependency but a regular dependency.) 
 2. *Require in code* - ```const morgan = require('morgan');```
 3. *Use middleware* - ```app.use(morgan('dev'));``` the dev argument describes how we want the log to look like;(options displayed in IntelliSense).  
-   When you look at the documentation, you will see that the morgan() funtions will return another function with the same typical signature as our own middleware functions ```return function logger(req, res, next){```; and it also calls the ```next()``` function at the end, just like our middleware functions.
+   When you look at the documentation for *morgan middleware*, you will see that the ```morgan()``` funtions will return another function with the same typical signature like our own middleware functions ```return function logger(req, res, next){```; and it also calls the ```next()``` function at the end, just like our middleware functions.
 
-Run the application, and make a request in postman. The data about the request will be displayed in the console:  
+Run the application, and make a request in postman.  
+The data about the request will be displayed in the console:  
 ``` GET /api/v1/tours/ 200 4.592 ms - 8703 ```  
 <br/>
 
@@ -637,9 +638,11 @@ These are some additional popular middleware modules:
 
 <br/>
 
-#### Implementing the "Users" Routes
-In this application, we will implement routes for user rescourse; user accounts, user roles  
-To do so, add the routes, the responses for the get/post/... requests, and the functions for these request methods.
+## Implementing Routes - for the "Users"
+In this application, we will implement routes for user rescourse; user accounts, user roles... To do so,
+- add the routes,
+- add the responses for the get/post/... requests,
+- and the functions for these request methods.
 
 ```JavaScript
 // add the routes
@@ -654,6 +657,7 @@ app
   .delete(deleteUser);
 
 // next, create the functions for the http request calls(implement later)
+
 // get all users:
 const getAllUsers = (req, res) => {
   res.status(500).json({
@@ -665,8 +669,9 @@ const getAllUsers = (req, res) => {
 . . . 
 ```  
 <br/>
+Run the server and make a request in postman.  
 
-#### Creating and Mounting Multiple Routers
+## Creating and Mounting Multiple Routers
 - create multiple routers and use a process called Mounting
 - our goal is to *separate code into multiple files* - a separate file for the user routes; one for the tour routes; and different files for the handlers as well.  
 - the four different routes that we have are kind of on the same router - the router is the app object. If we want to seperate these routes into two different files, we need to create a router, save it to a variable; and use it with that variable name instead of app.
@@ -711,7 +716,7 @@ app.use('api/v1/users', userRouter);
 
 <br/>
 
-#### Refactor the Application - A Better File Structure
+## Refactor the Application - A Better File Structure
 
 - To have a separation of concern create different resources for each router; and then put them together in one main app file.  
   The main app.js file is usually used for *middleware declaration*. The middleware declared on the top are used for all routes.
@@ -852,7 +857,7 @@ Recap:
 ## Param Middleware  
 - middleware that only runs for certain parameters in the URL.
 - when you specify the middleware in a router (here for example in tourRouter.js) then it will only work for the tours. This shows that each router acts as a mini application withing an application.
-- To utilize the param middleware, apply the Router objects param() method. The first argument will be the specifyc parameter from the URL that is targeted and the second argument is the actual middleware functions with req, res, next, and the val arguments.
+- To utilize the param middleware, apply the Router objects ```param()``` method. The first argument will be the parameter from the URL that is targeted, and the second argument is the actual middleware functions with req, res, next, and the val arguments.
 - the val argument is the parameter from the URL that is being passed 
 ```JavaScript
 	// create new router for the tours
