@@ -897,7 +897,7 @@ router.param('id', tourController.checkId);
 Run the server and make a get request with an invalid id - 127.0.0.1:3000/api/v1/tours/ 255  
 The response will be:  
 ![middleware params img](images/expressParams1.png)  
-***The flow of the execution is as follows:***  
+***The flow of this execution is as follows:***  
 - code hits app.js file
 - the router middleware function at the end of the file will run; note that the tour path is mounted to this middleware function:
 ```JavaScript
@@ -984,13 +984,38 @@ const port = 3000;
 app.listen(port, () => {
   console.log(`App running on port ${port}...`);
 });
+```  
+<br/>
+
+## Chaining Multiple Middleware Functions
+
+- for example for the post request we passed in only one middleware function which is the createTour handler. This is the only function that is going to be called when we get a post request.  
+  let's say we want to run multiple middleware functions; for example, to check the data that is comming from the body(check if request.body actually has the data).
+- Check if checkBody middleware - if body contains the name and the price property  
+Add the middleware function to tourController.js:
+```JavaScript
+// Create a checkBody middleware - check if bod contains name and price properties, if not send back 400 (bad request).
+// Add it to the post handler stack
+exports.checkBody = (req, res, next) => {
+  if (!req.body.name || !req.body.price) {
+    return res.status(400).json({
+      status: 'fail',
+      message: 'Missing name or price'
+    });
+  }
+  next();
+};
 ```
-
-
-
-
-
-
+Call the middleware function in tourRoutes.js
+```JavaScript
+// use router:
+router
+  .route('/')
+  .get(tourController.getAllTours)
+  .post(tourController.checkBody, tourController.createTour);
+```  
+Run the server and make a post request with the name and price properties in the body. The execution will hit the ```.route('/')```router and direct to the .post method which will execute the tourController.checkBody middleware function. The response will be 201 Created:  
+![middleware resonse 201](images/expressParams2.png)
 
 
 
