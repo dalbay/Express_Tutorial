@@ -1029,7 +1029,12 @@ app.use(express.static(`${__dirname}/public`));
 <br/>
 
 ## Environmental Variables
-
+- node.js or express can run in different environments.
+- depending on the environment we might use different settings like db's, login on/off,...
+- the most important environments are the production and development environments.
+- the type of settings are based on environment variables.
+- by default, express sets the environment to development.
+- let's take a look at the variable in the server - (everything that is not related to the app.js file(express configurations ) will be handled on the server.js file.
 
 
 
