@@ -1097,9 +1097,66 @@ if (process.env.NODE_ENV === 'development') {
     "start:dev": "nodemon server.js",
     "start:prod": "SET NODE_ENV=production & nodemon server.js"
 ```
+Run the server - ```> npm run start:prod```. You will see that the NODE_ENV variable will be set to production.  
+*This is how we run different code depending on whether we are in development or in production.*
 
 
+## Setting up ESLint + Prettier in VS Code
+- install extensions
+- install ESLint and prettier as npm packages.
 
+- install dev-dependency:
+- to show formatting errors as we type in prettier - eslint-plugin-prettier
+- to disable eslint for formatting, we want prettier for formatting - eslint-config-prettier
+- for future project all you need to do is to got to your package.json file and copy that configuration and install it in your next project; all of this packages have to be installed locally. 
+- we also need to install a style guide - eslint-config-airbnb
+- to add a couple specific eslint rules only for node.js(to find errors when writing node.js code) - eslint-plugin-node
+- to make the airbnb work - eslint-plugin-import eslint-plugin-jsx-a11y eslint-plugin-react
+- ```> npm i eslint prettier eslint-config-prettier eslint-plugin-prettier eslint-config-airbnb eslint-plugin-node eslint-plugin-import eslint-plugin-jsx-a11y eslint-plugin-react --save-dev```  
+Here are all the packages in package.json:
+```JavaScript
+  "devDependencies": {
+    "eslint": "^6.6.0",
+    "eslint-config-airbnb": "^18.0.1",
+    "eslint-config-prettier": "^6.5.0",
+    "eslint-plugin-import": "^2.18.2",
+    "eslint-plugin-jsx-a11y": "^6.2.3",
+    "eslint-plugin-node": "^10.0.0",
+    "eslint-plugin-prettier": "^3.1.1",
+    "eslint-plugin-react": "^7.16.0",
+    "nodemon": "^1.19.3",
+    "prettier": "^1.18.2"
+  }
+```  
+- next we need config files for prettier and eslint. 
+  - .prettierrc
+  ```JSON
+  {
+     "singleQuote": true
+  }
+  ```
+  -  .eslintrc.json - eslint set rules that we can manipulate. You can lookup ESLint webside for configurations; here is the configuration we're going to use:
+  ```JSON
+  {
+  "extends": ["airbnb", "prettier", "plugin:node/recommended"],
+  "plugins": ["prettier"],
+  "rules": {
+    "prettier/prettier": "error",
+    "spaced-comment": "off",
+    "no-console": "warn",
+    "consistent-return": "off",
+    "func-names": "off",
+    "object-shorthand": "off",
+    "no-process-exit": "off",
+    "no-param-reassign": "off",
+    "no-return-await": "off",
+    "no-underscore-dangle": "off",
+    "class-methods-use-this": "off",
+    "prefer-destructuring": ["error", { "object": true, "array": false }],
+    "no-unused-vars": ["error", { "argsIgnorePattern": "req|res|next|val" }]
+  }
+}
+  ```
 
 
 
