@@ -1092,7 +1092,12 @@ if (process.env.NODE_ENV === 'development') {
 	  console.log(`App running on port ${port}...`);
 	});
 ```
-  
+- add another start script to the package.json file for production and change the NODE_ENV variable to production, also rename the start script to start:dev
+```JavaScript
+    "start:dev": "nodemon server.js",
+    "start:prod": "SET NODE_ENV=production & nodemon server.js"
+```
+
 
 
 

@@ -6,7 +6,7 @@ dotenv.config({ path: './config.env' });
 const app = require('./app'); // since its our own module we need to use ./ for current folder.
 
 // display the environment
-console.log(process.env);
+//console.log(process.env);
 
 // START SERVER
 const port = process.env.PORT || 3000;
