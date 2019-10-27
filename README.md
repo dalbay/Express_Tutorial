@@ -1075,9 +1075,9 @@ App running on port 8000...
 ```
 - to make the configuration file look nice use the **DotENV extensions**
 - install the **doten** npm package to make use of these variables - ```npm i dotenv```
-- require that module in the server.js -**```const dotenv = require('dotenv');```**
-- use the module - this command will read the file and save the environmental variables in node.js - **```dotenv.config({ path: './config.env' });```**
-- read the data in the console - **```console.log(process.env);```**
+- require that module in the server.js on the top before we require app. -**```const dotenv = require('dotenv');```**
+- next, use the module to read the file and save the environmental variables in node.js - **```dotenv.config({ path: './config.env' });```**
+- make use the environmental variable in the console - **```console.log(process.env);```**
 - make use the environmental variable in the app.js file -
 ```JavaScript
 if (process.env.NODE_ENV === 'development') {
