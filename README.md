@@ -1063,7 +1063,31 @@ App running on port 8000...
 - express does not define this variable and we need to define that manually;
 - ***Define an environmental variable:*** the easies way is to use the terminal  
   prepend the NODE_ENV variable to the command that starts the process(we used the npm start which stands for nodemon server.js.)  **```NODE_ENV=development nodemon server.js```**  
-- 
+- Many packages on npm that we use for express development depend on this environment variable. When a project is ready and we are going to deploy it, we should change the NODE_ENV variable to production. 
+- Everytime our app uses some kind of configuration we change the environmental variabels.  
+#### Create a configuration file for the environmental variables:
+- create a file **config.env** and create some variables:
+```JavaScript
+	NODE_ENV=development
+	PORT=8000
+	USER=tom
+	PASSWORD=123456
+```
+- to make the configuration file look nice use the **DotENV extensions**
+- install the **doten** npm package to make use of these variables - ```npm i dotenv```
+- require that module in the server.js -**```const dotenv = require('dotenv');```**
+- use the module - this command will read the file and save the environmental variables in node.js - **```dotenv.config({ path: './config.env' });```**
+- read the data in the console - **```console.log(process.env);```**
+- make use the environmental variable in the app.js file -
+```JavaScript
+if (process.env.NODE_ENV === 'development') {
+  app.use(morgan('dev')); // passed in argument - how we want the loggin to look like. 
+}
+```  
+- make use the environmental variable in the server.js file -
+```JavaScript
+
+```
   
 
 
