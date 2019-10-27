@@ -1100,6 +1100,7 @@ if (process.env.NODE_ENV === 'development') {
 Run the server - ```> npm run start:prod```. You will see that the NODE_ENV variable will be set to production.  
 *This is how we run different code depending on whether we are in development or in production.*
 
+<br/>
 
 ## Setting up ESLint + Prettier in VS Code
 - install extensions
