@@ -1,11 +1,8 @@
 // use File System
 const fs = require('fs');
+const Tour = require('./../models/tourModel');
 
-// Read Data (tours) - an array of JSON objects inside the dev-data folder.
-const tours = JSON.parse(
-  fs.readFileSync(`${__dirname}/../dev-data/data/tours-simple.json`)
-);
-
+/*Testing purpose:(param middleware)
 // middleware function to check id
 exports.checkId = (req, res, next, val) => {
   console.log(`Tour id is: ${val}`);
@@ -17,82 +14,109 @@ exports.checkId = (req, res, next, val) => {
   }
   next();
 };
-
-// Create a checkBody middleware - check if bod contains name and price properties, if not send back 400 (bad request).
-// Add it to the post handler stack
-exports.checkBody = (req, res, next) => {
-  if (!req.body.name || !req.body.price) {
-    return res.status(400).json({
-      status: 'fail',
-      message: 'Missing name or price'
-    });
-  }
-  next();
-};
+*/
 
 // ROUTE HANDLER for Tours
 
 // get ALL Tours
-exports.getAllTours = (request, response) => {
-  console.log(request.requestTime); // use the property here
-  response.status(200).json({
-    status: 'success',
-    requestedAt: request.requestTime, // send the property defined in middleware
-    results: tours.length,
-    data: {
-      tours
-    }
-  });
+exports.getAllTours = async (request, response) => {
+  try {
+    // use the models find method - gets all data in Tour collection
+    const tours = await Tour.find();
+
+    response.status(200).json({
+      status: 'success',
+      results: tours.length,
+      data: {
+        tours
+      }
+    });
+  } catch (err) {
+    response.status(404).json({
+      status: 'Fail',
+      message: err
+    });
+  }
 };
 
 // get a Tour
-exports.getTour = (request, response) => {
-  const id = request.params.id * 1;
+exports.getTour = async (request, response) => {
+  try {
+    // examine router and see how we specify the id in the URL
+    const tour = await Tour.findById(request.params.id);
+    // same as above (findById is shorthand):
+    //Tour.findOne({ _id: request.params.id });
 
-  const tour = tours.find(element => element.id === id);
-
-  response.status(200).json({
-    status: 'success',
-    data: {
-      tour
-    }
-  });
+    response.status(200).json({
+      status: 'success',
+      data: {
+        tour
+      }
+    });
+  } catch (err) {
+    response.status(404).json({
+      status: 'Fail',
+      message: err
+    });
+  }
 };
 
-// create a Tour
-exports.createTour = (request, response) => {
-  const newId = tours[tours.length - 1].id + 1;
-  const newTour = Object.assign({ id: newId, price: 230 }, request.body);
-
-  tours.push(newTour);
-  fs.writeFile(
-    `${__dirname}/dev-data/data/tours-simple.json`,
-    JSON.stringify(tours),
-    err => {
-      response.status(201).json({
-        status: 'success',
-        data: {
-          tour: newTour
-        }
-      });
-    }
-  );
+// create a Tour from the data that comes from the body:
+exports.createTour = async (request, response) => {
+  try {
+    const newTour = await Tour.create(request.body);
+    response.status(201).json({
+      status: 'success',
+      data: {
+        tour: newTour
+      }
+    });
+  } catch (err) {
+    // the promise that was created (Tour.create()) and rejected will enter here!
+    response.status(400).json({
+      status: 'fail',
+      message: err
+    });
+  }
 };
 
 // update a Tour
-exports.updateTour = (request, response) => {
-  response.status(200).json({
-    status: 'success',
-    data: {
-      tour: '<Updated tour here...>'
-    }
-  });
+exports.updateTour = async (request, response) => {
+  try {
+    // get document to update - await the result of the query
+    const tour = await Tour.findByIdAndUpdate(request.params.id, request.body, {
+      // query method optional params(mongoose docs)
+      new: true, // returns new tour
+      runValidators: true // retuns error if input type wrong.
+    });
+
+    response.status(200).json({
+      status: 'success',
+      data: {
+        tour: tour // in ES6 all we write is -> tour
+      }
+    });
+  } catch (err) {
+    response.status(404).json({
+      status: 'Fail',
+      message: err
+    });
+  }
 };
 
 // delete a Tour
-exports.deleteTour = (request, response) => {
-  response.status(204).json({
-    status: 'success',
-    data: null
-  });
+exports.deleteTour = async (request, response) => {
+  try {
+    await Tour.findByIdAndDelete(request.params.id);
+
+    response.status(204).json({
+      status: 'success',
+      data: null
+    });
+  } catch (err) {
+    response.status(404).json({
+      status: 'Fail',
+      message: err
+    });
+  }
 };
