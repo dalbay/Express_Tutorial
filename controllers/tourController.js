@@ -1,29 +1,33 @@
 // use File System
-const fs = require('fs');
+//const fs = require('fs');
 const Tour = require('./../models/tourModel');
 
-/*Testing purpose:(param middleware)
-// middleware function to check id
-exports.checkId = (req, res, next, val) => {
-  console.log(`Tour id is: ${val}`);
-  if (req.params.id * 1 > tours.length) {
-    return res.status(404).json({
-      status: 'fail',
-      message: 'Invalid ID'
-    });
-  }
+// require the apiFeatures
+const APIFeatures = require('./../utils/apiFeatures');
+
+// Aliasing the API
+exports.aliasTopTours = (req, res, next) => {
+  req.query.limit = '5';
+  req.query.sort = '-ratingsAverage,price';
+  req.query.fields = 'name,price,ratingsAverage,summary,difficulty';
   next();
 };
-*/
 
 // ROUTE HANDLER for Tours
 
 // get ALL Tours
 exports.getAllTours = async (request, response) => {
   try {
-    // use the models find method - gets all data in Tour collection
-    const tours = await Tour.find();
+    // EXECUTE QUERY
+    const features = new APIFeatures(Tour.find(), request.query)
+      .filter()
+      .sort()
+      .limitFields()
+      .paginate();
 
+    const tours = await features.query;
+
+    // SEND RESPONSE
     response.status(200).json({
       status: 'success',
       results: tours.length,
@@ -112,6 +116,38 @@ exports.deleteTour = async (request, response) => {
     response.status(204).json({
       status: 'success',
       data: null
+    });
+  } catch (err) {
+    response.status(404).json({
+      status: 'Fail',
+      message: err
+    });
+  }
+};
+
+exports.getTourStats = async (request, response) => {
+  try {
+    // if you don't await here, it returns an aggregate object instead
+    const stats = await Tour.aggregate([
+      {
+        $match: { ratingAverage: { $gte: 4.5 } }
+      },
+      {
+        $group: {
+          _id: null,
+          avgRating: { $avg: '$ratingsAverage' },
+          avgPrice: { $avg: '$price' },
+          minPrice: { $min: '$price' },
+          maxPrice: { $max: '$price' }
+        }
+      }
+    ]);
+
+    response.status(200).json({
+      status: 'success',
+      data: {
+        stats
+      }
     });
   } catch (err) {
     response.status(404).json({

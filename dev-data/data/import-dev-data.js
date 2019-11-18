@@ -41,6 +41,7 @@ const importData = async () => {
   } catch (err) {
     console.log(err);
   }
+  process.exit(); // stopping app in terminal
 };
 
 // DELETE  ALL DATA FROM DB
@@ -51,7 +52,14 @@ const deleteData = async () => {
   } catch (err) {
     console.log(err);
   }
+  process.exit(); // stopping app in terminal
 };
+
+if (process.argv[2] === '--import') {
+  importData();
+} else if (process.argv[2] === '--delete') {
+  deleteData();
+}
 
 // instead of calling the functions we will interact with the comment line
 console.log(process.argv);

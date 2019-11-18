@@ -4,11 +4,10 @@ const mongoose = require('mongoose');
 // require the environmetal variable module
 const dotenv = require('dotenv');
 
-// require express application
-const app = require('./app'); // since its our own module we need to use ./ for current folder.
-
 // read and save the environmental variables in node.js
 dotenv.config({ path: './config.env' });
+// require express application
+const app = require('./app'); // since its our own module we need to use ./ for current folder.
 
 // change the password in the connection string
 const DB = process.env.DATABASE.replace(
@@ -19,6 +18,7 @@ const DB = process.env.DATABASE.replace(
 // connect to mongoose:
 mongoose
   .connect(DB, {
+    useUnifiedTopology: true,
     useNewUrlParser: true,
     useCreateIndex: true,
     useFindAndModify: false
