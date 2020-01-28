@@ -1,7 +1,7 @@
 
 ## Setting up Express and Basic Routing
 - ```npm init```
-- ```npm i express@4```
+- ```npm install express```
 - create app.js file - put all Express configurations inside this folder.
 ```JavaScript
 // Use Express:
