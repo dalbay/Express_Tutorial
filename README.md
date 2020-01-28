@@ -87,8 +87,7 @@ Here we have a JSON object response in Postman.
 
 ## Handling GET Requests
 
-- In this project we will be able to see tours, book tours, create accounts, look at reviews from other users. The graphical interface will be build later.
-- Start the project by working with the data - *Create the API.*
+- Start the project by working with the data -> *Create the API.*
 ```JavaScript
 // Use File System
 const fs = require('fs');
@@ -131,7 +130,7 @@ Run the project and test the api in Postman:
 <br/>
 
 ## Handling POST Requests
-*add a new tour to the data-set*
+
 - Create a new Route
 - To send data from the client to the server on the request, add a **middleware** to the top-level - ```app.use(express.json());```.  
 - *Middleware:* can manipulate the request or response object, or execute any other code. It is mostly used for request. 
@@ -532,7 +531,7 @@ var cookieParser = require('cookie-parser')
 // load the cookie-parsing middleware
 app.use(cookieParser())
 ```
-< br/>
+<br/>
 
 ## Creating Our Own Middleware
 - To create our own middleware use ```app.use``` and pass in a callback function that we want to add to our middleware stack.
@@ -672,7 +671,7 @@ const getAllUsers = (req, res) => {
 Run the server and make a request in postman.  
 
 ## Creating and Mounting Multiple Routers
-- create multiple routers and use a process called Mounting
+- create multiple routers and use a process called **Mounting**  
 - our goal is to *separate code into multiple files* - a separate file for the user routes; one for the tour routes; and different files for the handlers as well.  
 - the four different routes that we have are kind of on the same router - the router is the app object. If we want to seperate these routes into two different files, we need to create a router, save it to a variable; and use it with that variable name instead of app.
 - Create a sub-application; this is how we connect the routers with the application(by using it as a middleware) - ```app.use('/api/v1/tours', tourRouter);``` This process is called **Mounting Router** - mounting a router onto a route.
@@ -1155,18 +1154,6 @@ Here are all the packages in package.json:
     "class-methods-use-this": "off",
     "prefer-destructuring": ["error", { "object": true, "array": false }],
     "no-unused-vars": ["error", { "argsIgnorePattern": "req|res|next|val" }]
+    }
   }
-}
   ```
-
-
-
-
-
-
-
-
-
-
-
-
